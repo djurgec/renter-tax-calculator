@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+/* Semantic colour tokens; components use these names, never raw palette colours. */
+:root {
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --surface-2: #eef2f6;
+  --text: #14202b;
+  --muted: #536271;
+  --line: #d5dde5;
+  --brand: #0b5c8e;
+  --brand-strong: #084a73;
+  --brand-soft: #e3f0f8;
+  --on-brand: #ffffff;
+  --accent: #c8452f;
+  --warn-bg: #fff6e0;
+  --warn-line: #f0c96a;
+  --warn-text: #5c4100;
+  --ok: #1f7a4d;
+  --bad: #b3261e;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f161d;
+    --surface: #17212b;
+    --surface-2: #1f2b37;
+    --text: #e6edf3;
+    --muted: #9aabbb;
+    --line: #2e3d4b;
+    --brand: #5fb3e8;
+    --brand-strong: #8cc9f0;
+    --brand-soft: #16354b;
+    --on-brand: #06263a;
+    --accent: #f08a74;
+    --warn-bg: #3a2d0c;
+    --warn-line: #7a5b17;
+    --warn-text: #f5dc9c;
+    --ok: #5fcf96;
+    --bad: #ff8a80;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-soft: var(--brand-soft);
+  --color-on-brand: var(--on-brand);
+  --color-accent: var(--accent);
+  --color-warn-bg: var(--warn-bg);
+  --color-warn-line: var(--warn-line);
+  --color-warn-text: var(--warn-text);
+  --color-ok: var(--ok);
+  --color-bad: var(--bad);
+  --font-sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Leaflet controls inherit the page font and stay readable in dark mode */
+.leaflet-container {
+  font: inherit;
+  background: var(--surface-2);
+}
+
+/* Tailwind's preflight sets img { max-width: 100% }, which collapses Leaflet tiles */
+.leaflet-container img {
+  max-width: none !important;
+  max-height: none !important;
+}

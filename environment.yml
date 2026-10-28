@@ -1,0 +1,18 @@
+# Conda environment with everything needed to build the data, run the API and the frontend.
+#   conda env create -f environment.yml
+#   conda activate rent
+# Python packages come from pyproject.toml (installed in editable mode, so code changes apply
+# without reinstalling). uv + .venv remains an alternative; both use the same pyproject.toml.
+name: rent
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - sqlite>=3.45        # FTS5 trigram tokenizer with remove_diacritics
+  - nodejs=22           # frontend (web/)
+  - pyproj>=3.6         # conda build ships its PROJ data files
+  - pip
+  - pip:
+      - -e .
+      - pytest>=8.3
+      - ruff>=0.6

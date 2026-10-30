@@ -30,13 +30,16 @@ export function MunicipalityPage() {
   const wideRate = wide.length === 1 ? wide[0].rates.bed : null
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       <div>
-        <Link to="/opcine" className="text-sm text-brand underline">
-          ← {t('muni.back')}
+        <Link to="/opcine" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:underline">
+          <svg aria-hidden="true" viewBox="0 0 16 16" className="h-4 w-4">
+            <path d="M10 3.5L5.5 8l4.5 4.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          {t('muni.back')}
         </Link>
-        <h1 className="mt-2 text-2xl font-semibold sm:text-3xl">{m.name}</h1>
-        <p className="mt-1 flex flex-wrap items-center gap-2 text-muted">
+        <h1 className="mt-2 text-[2rem] leading-[1.1] sm:text-[2.5rem]">{m.name}</h1>
+        <p className="mt-2 flex flex-wrap items-center gap-2 text-lg text-muted">
           {m.county}
           <Badge tone="brand">
             {m.tourism_category ? t('muni.category', { category: m.tourism_category }) : t('muni.noCategory')}
@@ -45,9 +48,9 @@ export function MunicipalityPage() {
         {m.pausal_source_ambiguous && <p className="mt-2 text-warn-text">{t('muni.ambiguous')}</p>}
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-2">
+      <div className="grid gap-6 lg:grid-cols-2">
         <Card>
-          <h2 className="text-lg font-semibold">{t('muni.taxesTitle')}</h2>
+          <h2 className="display text-xl sm:text-2xl">{t('muni.taxesTitle')}</h2>
           <div className="mt-3 overflow-x-auto">
             <table className="tabular w-full text-sm">
               <thead className="text-left text-muted">
@@ -76,7 +79,7 @@ export function MunicipalityPage() {
         </Card>
 
         <Card>
-          <h2 className="text-lg font-semibold">{t('muni.neighboursTitle')}</h2>
+          <h2 className="display text-xl sm:text-2xl">{t('muni.neighboursTitle')}</h2>
           {neighbours.isError && <ErrorBox error={neighbours.error} />}
           <div className="mt-3 overflow-x-auto">
             <table className="tabular w-full text-sm">
@@ -133,7 +136,7 @@ function RulesTable({ rules }: { rules: PausalRule[] }) {
     <Card>
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="text-lg font-semibold">{t('muni.rulesTitle', { year: 2026 })}</h2>
+          <h2 className="display text-xl sm:text-2xl">{t('muni.rulesTitle', { year: 2026 })}</h2>
           <p className="text-sm text-muted">{t('muni.rulesCount', { count: rules.length })}</p>
         </div>
         {rules.length > 10 && (
@@ -146,7 +149,7 @@ function RulesTable({ rules }: { rules: PausalRule[] }) {
               type="search"
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="mt-1 rounded-md border border-line bg-surface px-2 py-1.5"
+              className="mt-1 rounded-lg border border-line-strong bg-surface px-3 py-2 focus:border-brand focus:outline-none focus-visible:outline-2 focus-visible:outline-brand"
             />
           </div>
         )}

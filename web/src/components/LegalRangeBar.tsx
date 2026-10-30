@@ -14,16 +14,22 @@ export function LegalRangeBar({ range, rate }: { range: LegalRange; rate: number
       <figcaption className="mb-1 text-sm text-muted" title={t('result.legalRangeHelp')}>
         {t('result.legalRange', { category: range.category })}
       </figcaption>
-      <div className="relative h-8" aria-hidden="true">
-        <div className="absolute inset-x-0 top-3 h-2 rounded-full bg-surface-2" />
+      <div className="relative h-7" aria-hidden="true">
+        <div className="absolute inset-x-0 top-[11px] h-1.5 rounded-full bg-surface-2" />
+        {rate != null && (
+          <div
+            className="absolute top-[11px] h-1.5 rounded-full bg-accent-soft"
+            style={{ left: 0, width: pos(rate) }}
+          />
+        )}
         <div
-          className="absolute top-2 h-4 w-px bg-muted"
+          className="absolute top-1.5 h-4 w-0.5 -translate-x-1/2 rounded-full bg-line-strong"
           style={{ left: pos(range.default_amount) }}
           title={t('result.defaultAmount', { amount: eur(range.default_amount) })}
         />
         {rate != null && (
           <div
-            className="absolute top-1 h-6 w-1.5 -translate-x-1/2 rounded-full bg-accent"
+            className="absolute top-1 h-[18px] w-[18px] -translate-x-1/2 rounded-full border-[3px] border-surface bg-accent shadow-[0_1px_3px_rgb(0_0_0/0.25)]"
             style={{ left: pos(rate) }}
           />
         )}

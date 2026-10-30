@@ -18,9 +18,9 @@ export function MunicipalityListPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold sm:text-3xl">{t('muni.listTitle')}</h1>
+      <h1 className="text-[2rem] leading-[1.1] sm:text-[2.5rem]">{t('muni.listTitle')}</h1>
       {list.data && <p className="mt-2 text-muted">{t('muni.listIntro', { count: list.data.length })}</p>}
-      <label htmlFor={id} className="mt-5 block font-medium">
+      <label htmlFor={id} className="mt-8 block font-semibold">
         {t('muni.filter')}
       </label>
       <input
@@ -28,16 +28,16 @@ export function MunicipalityListPage() {
         type="search"
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
-        className="mt-1 w-full max-w-sm rounded-lg border border-line bg-surface px-3 py-2"
+        className="mt-2 h-12 w-full max-w-sm rounded-xl border border-line-strong bg-surface px-4 text-lg transition-colors hover:border-brand focus:border-brand focus:outline-none focus-visible:outline-2 focus-visible:outline-brand"
       />
       {list.isLoading && <Loading />}
       {list.isError && <ErrorBox error={list.error} />}
-      <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-6 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
         {shown.map((m) => (
           <li key={m.code}>
             <Link
               to={`/opcine/${m.code}`}
-              className="flex h-full items-start justify-between gap-2 rounded-lg border border-line bg-surface px-3 py-2 hover:border-brand"
+              className="press flex h-full items-start justify-between gap-2 rounded-xl bg-surface px-4 py-3 hover:bg-brand-soft"
             >
               <span>
                 <span className="font-medium">{m.name}</span>

@@ -10,19 +10,29 @@ export function ResultCard({ result, stale }: { result: CalculationResult; stale
   const { t } = useTranslation()
   const { pausal, property_tax: pt } = result
   const noUnits = pausal.lines.length === 0
+  const total = eurRange(result.total_min, result.total_max)
 
   return (
-    <Card className={`transition-opacity ${stale ? 'opacity-60' : ''}`}>
-      <div aria-live="polite">
-        <h2 className="text-sm font-medium uppercase tracking-wide text-muted">{t('result.total')}</h2>
-        <p className="tabular mt-1 text-4xl font-semibold text-ink">
-          {eurRange(result.total_min, result.total_max)}
+    <Card className={`transition-opacity duration-200 ${stale ? 'opacity-60' : ''}`}>
+      {/* The bottom line of a tax decision: label, dotted leader, amount. */}
+      <div
+        aria-live="polite"
+        className="-mx-5 -mt-5 flex flex-wrap items-end gap-x-3 gap-y-1 rounded-t-2xl bg-surface-2 px-5 pb-5 pt-6 sm:-mx-7 sm:-mt-7 sm:px-7"
+      >
+        <h2 className="pb-1 text-lg font-semibold">{t('result.total')}</h2>
+        <Leader className="mb-2.5 self-end" />
+        <p
+          key={total}
+          className="display settle tabular ml-auto text-[2.25rem] leading-none sm:text-[2.6rem]"
+        >
+          {total}
         </p>
       </div>
 
-      <section className="mt-5 border-t border-line pt-4">
-        <div className="flex items-baseline justify-between gap-3">
+      <section className="mt-6">
+        <div className="flex items-baseline gap-3">
           <h3 className="font-semibold">{t('result.pausal')}</h3>
+          <Leader />
           <span className="tabular font-semibold">
             {pausal.alternatives.length > 0
               ? eurRange(
@@ -65,9 +75,10 @@ export function ResultCard({ result, stale }: { result: CalculationResult; stale
         )}
       </section>
 
-      <section className="mt-5 border-t border-line pt-4">
-        <div className="flex items-baseline justify-between gap-3">
+      <section className="mt-7">
+        <div className="flex items-baseline gap-3">
           <h3 className="font-semibold">{t('result.propertyTax')}</h3>
+          <Leader />
           <span className="tabular font-semibold">{eurRange(pt.amount_min, pt.amount_max)}</span>
         </div>
         <div className="mt-1 space-y-0.5 text-sm text-muted">
@@ -93,7 +104,7 @@ export function ResultCard({ result, stale }: { result: CalculationResult; stale
       </section>
 
       {result.warnings.length > 0 && (
-        <section className="mt-5 rounded-lg border border-warn-line bg-warn-bg p-3 text-sm text-warn-text">
+        <section className="mt-6 rounded-xl bg-warn-bg px-4 py-3 text-sm text-warn-text">
           <h3 className="font-semibold">{t('warnings.title')}</h3>
           <ul className="mt-1 list-disc space-y-1 pl-5">
             {result.warnings.map((w) => (
@@ -103,8 +114,8 @@ export function ResultCard({ result, stale }: { result: CalculationResult; stale
         </section>
       )}
 
-      <details className="mt-5 border-t border-line pt-4 text-sm">
-        <summary className="cursor-pointer font-medium text-brand">{t('result.howCalculated')}</summary>
+      <details className="group mt-6 text-sm">
+        <summary className="cursor-pointer font-semibold text-brand marker:text-accent">{t('result.howCalculated')}</summary>
         <ul className="mt-2 space-y-2">
           {result.provenance.map((p) => (
             <li key={p.dataset}>
@@ -122,12 +133,22 @@ export function ResultCard({ result, stale }: { result: CalculationResult; stale
         </ul>
       </details>
 
-      <div className="mt-4 flex flex-col gap-2 text-sm sm:flex-row sm:items-center sm:justify-between">
-        <Link to={`/opcine/${result.municipality.code}`} className="text-brand underline">
+      <div className="mt-5 flex flex-col gap-2 rounded-xl bg-surface-2/60 px-4 py-3 text-sm sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+        <Link to={`/opcine/${result.municipality.code}`} className="shrink-0 font-semibold text-brand underline">
           {t('result.municipalityPage', { name: result.municipality.name })}
         </Link>
         <p className="text-muted">{t('result.disclaimer')}</p>
       </div>
     </Card>
+  )
+}
+
+/** Dotted leader that runs from a label to its amount, as on a printed tax notice. */
+function Leader({ className = '' }: { className?: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`min-w-4 flex-1 border-b-2 border-dotted border-line-strong ${className}`}
+    />
   )
 }

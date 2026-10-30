@@ -15,11 +15,11 @@ export function NumberField({ label, help, value, onChange, max = 999 }: Props) 
   const id = useId()
   const set = (v: number) => onChange(Math.min(max, Math.max(0, Math.round(v) || 0)))
   const btn =
-    'h-11 w-11 shrink-0 rounded-md border border-line text-lg font-medium hover:border-brand disabled:opacity-40'
+    'press grid h-12 w-12 shrink-0 place-items-center rounded-full border border-line-strong bg-surface text-brand hover:border-brand hover:bg-brand-soft disabled:border-line disabled:bg-transparent disabled:text-muted/50'
 
   return (
-    <div>
-      <label htmlFor={id} className="block font-medium">
+    <div className="flex flex-col">
+      <label htmlFor={id} className="block font-semibold">
         {label}
       </label>
       {help && (
@@ -27,7 +27,7 @@ export function NumberField({ label, help, value, onChange, max = 999 }: Props) 
           {help}
         </p>
       )}
-      <div className="flex items-center gap-2">
+      <div className="mt-auto flex items-center gap-2 pt-1">
         <button
           type="button"
           className={btn}
@@ -35,7 +35,7 @@ export function NumberField({ label, help, value, onChange, max = 999 }: Props) 
           disabled={value <= 0}
           aria-label={`${t('form.decrease')}: ${label}`}
         >
-          −
+          <StepIcon />
         </button>
         <input
           id={id}
@@ -46,7 +46,7 @@ export function NumberField({ label, help, value, onChange, max = 999 }: Props) 
           value={value}
           aria-describedby={help ? `${id}-help` : undefined}
           onChange={(e) => set(Number(e.target.value))}
-          className="tabular h-11 w-20 rounded-md border border-line bg-surface text-center text-lg"
+          className="tabular h-12 w-20 rounded-xl border border-line-strong bg-surface text-center text-lg transition-colors hover:border-brand focus:border-brand focus:outline-none focus-visible:outline-2 focus-visible:outline-brand"
         />
         <button
           type="button"
@@ -55,9 +55,17 @@ export function NumberField({ label, help, value, onChange, max = 999 }: Props) 
           disabled={value >= max}
           aria-label={`${t('form.increase')}: ${label}`}
         >
-          +
+          <StepIcon plus />
         </button>
       </div>
     </div>
+  )
+}
+
+function StepIcon({ plus = false }: { plus?: boolean }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 16 16" className="h-4 w-4">
+      <path d={plus ? 'M3 8h10M8 3v10' : 'M3 8h10'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
   )
 }

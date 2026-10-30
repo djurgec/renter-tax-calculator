@@ -88,3 +88,18 @@ test('"Promijeni adresu" goes back to the search', async ({ page }) => {
   await expect(page.getByRole('combobox', { name: 'Adresa nekretnine' })).toBeVisible()
   await expect(page).not.toHaveURL(/[?&]a=/)
 })
+
+test('on a phone the total follows the form and leads back to the result', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'the sticky total exists only on small screens')
+  await page.goto('/?a=KB.5&b=4&p=80')
+  await expect(total(page)).toHaveText(/^1\.196,32\s€$/)
+
+  const bar = page.getByRole('button', { name: /Ukupno godišnje.*1\.196,32/ })
+  await page.getByRole('spinbutton', { name: 'Kreveti' }).scrollIntoViewIfNeeded()
+  await expect(bar).toBeVisible()
+  await page.getByRole('button', { name: /: Kreveti$/ }).last().click()
+  await expect(page.getByRole('button', { name: /Ukupno godišnje.*1\.395,40/ })).toBeVisible()
+
+  await page.getByRole('button', { name: /Ukupno godišnje.*1\.395,40/ }).click()
+  await expect(total(page)).toBeInViewport()
+})

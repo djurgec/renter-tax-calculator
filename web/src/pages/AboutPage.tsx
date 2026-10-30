@@ -11,28 +11,28 @@ export function AboutPage() {
   const limits = t('about.limits', { returnObjects: true }) as string[]
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold sm:text-3xl">{t('about.title')}</h1>
+        <h1 className="text-[2rem] leading-[1.1] sm:text-[2.5rem]">{t('about.title')}</h1>
         <p className="mt-2 max-w-2xl text-muted">{t('about.intro')}</p>
       </div>
       {sources.isLoading && <Loading />}
       {sources.isError && <ErrorBox error={sources.error} />}
 
       {v && (
-        <div className="grid gap-5 sm:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-3">
           <Card>
-            <p className="tabular text-3xl font-semibold">{num(v.stats.addresses)}</p>
+            <p className="display tabular text-4xl">{num(v.stats.addresses)}</p>
             <p className="text-muted">{t('about.addresses')}</p>
           </Card>
           <Card>
-            <p className="tabular text-3xl font-semibold">
+            <p className="display tabular text-4xl">
               {percent(v.stats.addresses_resolved / v.stats.addresses)}
             </p>
             <p className="text-muted">{t('about.resolved')}</p>
           </Card>
           <Card>
-            <p className="tabular text-3xl font-semibold">
+            <p className="display tabular text-4xl">
               {sources.data?.build.built_at ? date(sources.data.build.built_at) : '–'}
             </p>
             <p className="text-muted">{t('about.built')}</p>
@@ -42,13 +42,20 @@ export function AboutPage() {
 
       {v && (
         <Card>
-          <h2 className="text-lg font-semibold">{t('about.checksTitle')}</h2>
+          <h2 className="display text-xl sm:text-2xl">{t('about.checksTitle')}</h2>
           <ul className="mt-3 space-y-1.5">
             {v.checks.map((c) => (
               <li key={c.check} className="flex items-start gap-2">
-                <span className={c.ok ? 'text-ok' : 'text-bad'} aria-hidden="true">
-                  {c.ok ? '✓' : '✗'}
-                </span>
+                <svg aria-hidden="true" viewBox="0 0 16 16" className={`mt-1 h-4 w-4 shrink-0 ${c.ok ? 'text-ok' : 'text-bad'}`}>
+                  <path
+                    d={c.ok ? 'M3 8.5l3.2 3L13 4.5' : 'M4 4l8 8M12 4l-8 8'}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
                 <span>
                   {t(`checks.${c.check}`, { defaultValue: c.check })}
                   <span className="sr-only"> – {c.ok ? t('about.passed') : t('about.failed')}</span>
@@ -61,7 +68,7 @@ export function AboutPage() {
 
       {sources.data && (
         <Card>
-          <h2 className="text-lg font-semibold">{t('about.datasetsTitle')}</h2>
+          <h2 className="display text-xl sm:text-2xl">{t('about.datasetsTitle')}</h2>
           <div className="mt-3 overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="text-left text-muted">
@@ -95,7 +102,7 @@ export function AboutPage() {
       )}
 
       <Card>
-        <h2 className="text-lg font-semibold">{t('about.limitsTitle')}</h2>
+        <h2 className="display text-xl sm:text-2xl">{t('about.limitsTitle')}</h2>
         <ul className="mt-2 list-disc space-y-1 pl-5">
           {limits.map((l) => (
             <li key={l}>{l}</li>

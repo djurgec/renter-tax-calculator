@@ -4,7 +4,7 @@ import { CircleMarker, MapContainer, TileLayer } from 'react-leaflet'
 /** Small locator map. Loaded lazily so Leaflet is not in the first bundle. */
 export default function AddressMap({ lat, lon, label }: { lat: number; lon: number; label: string }) {
   return (
-    <div className="h-48 overflow-hidden rounded-lg border border-line" role="img" aria-label={label}>
+    <div className="h-52 overflow-hidden rounded-xl" role="img" aria-label={label}>
       <MapContainer
         key={`${lat},${lon}`}
         center={[lat, lon]}

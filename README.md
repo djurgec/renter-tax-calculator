@@ -164,7 +164,8 @@ skill brings its findings back for another review.
 
 ### Using uv instead
 
-Requires [uv](https://docs.astral.sh/uv/) and Node.js 20+. Replace step 1 with:
+Requires [uv](https://docs.astral.sh/uv/) and Node.js 22 (at least 20.19 or 22.12; Vite
+refuses older versions). Replace step 1 with:
 
 ```bash
 uv sync

@@ -114,3 +114,9 @@ test('on a phone the total follows the form and leads back to the result', async
   await bar.click()
   await expect(total(page)).toBeInViewport()
 })
+
+test('says so when the map data cannot be loaded (e.g. an API started before an update)', async ({ page }) => {
+  await page.route('**/api/map', (route) => route.fulfill({ status: 404, body: '{"detail":"Not Found"}' }))
+  await page.goto('/')
+  await expect(page.getByRole('alert').filter({ hasText: '/api/map' })).toBeVisible()
+})

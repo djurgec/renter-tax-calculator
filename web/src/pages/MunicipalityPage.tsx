@@ -124,6 +124,7 @@ export function MunicipalityPage() {
         <div className="h-[22rem] sm:h-[28rem] lg:sticky lg:top-6 lg:h-[34rem]">
           <ChartMap
             points={points.data ?? []}
+            error={points.isError}
             fix={m.lat != null && m.lon != null ? { lat: m.lat, lon: m.lon, label: `m${m.code}` } : null}
             soundings={(neighbours.data ?? []).flatMap((n) => {
               const p = points.data?.find((x) => x.code === n.code)

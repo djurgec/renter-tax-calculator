@@ -112,6 +112,7 @@ const hr = {
     open: 'Otvori {{name}}',
     zoomOut: 'Cijela Hrvatska',
     zoomIn: 'Približi adresu',
+    loadError: 'Općine se ne mogu prikazati na karti: API nije odgovorio na /api/map. Ponovno pokrenite API (uv run porezni-kompas-api) da učita najnoviji kod.',
   },
   units: {
     bed: 'krevet',
@@ -334,6 +335,7 @@ const en: Dict = {
     open: 'Open {{name}}',
     zoomOut: 'All of Croatia',
     zoomIn: 'Zoom to address',
+    loadError: 'The municipalities cannot be shown on the map: the API did not answer /api/map. Restart the API (uv run porezni-kompas-api) so it loads the latest code.',
   },
   units: { bed: 'bed', camp_unit: 'camp pitch', robinson_unit: 'robinson unit' },
   warnings: {

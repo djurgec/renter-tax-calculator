@@ -94,6 +94,7 @@ export function MunicipalityListPage() {
       <div className="h-[22rem] [grid-area:chart] sm:h-[28rem] lg:sticky lg:top-6 lg:h-[calc(100vh-8rem)] lg:min-h-[36rem]">
         <ChartMap
           points={(points.data ?? []).filter((p) => !f || shownCodes.has(p.code))}
+          error={points.isError}
           highlight={hover}
           highlightTip
           onHover={setHover}

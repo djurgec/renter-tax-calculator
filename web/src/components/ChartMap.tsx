@@ -24,6 +24,8 @@ interface Props {
   onHover?: (code: number | null) => void
   /** Show the name/rate tip for `highlight` too (lists that drive the map). */
   highlightTip?: boolean
+  /** The municipality points could not be loaded. */
+  error?: boolean
 }
 
 type Box = [number, number, number, number]
@@ -31,7 +33,7 @@ const FULL: Box = [-10, 0, CHART_W + 20, CHART_H]
 const ZOOM_W = 380
 
 /** Chart of Croatia with every municipality as a sounding of its per-bed rate. */
-export function ChartMap({ points, fix, soundings = [], highlight, onOpen, onHover, highlightTip = false }: Props) {
+export function ChartMap({ points, fix, soundings = [], highlight, onOpen, onHover, highlightTip = false, error = false }: Props) {
   const { t } = useTranslation()
   const [zoomed, setZoomed] = useState(true)
   const [hover, setHover] = useState<number | null>(null)
@@ -167,6 +169,12 @@ export function ChartMap({ points, fix, soundings = [], highlight, onOpen, onHov
           </button>
         )}
       </div>
+
+      {error && (
+        <p role="alert" className="absolute inset-x-4 top-16 rounded-xl bg-warn-bg px-4 py-3 text-[0.95rem] text-warn-text sm:right-auto sm:max-w-md">
+          {t('chart.loadError')}
+        </p>
+      )}
 
       <Legend fix={!!fix} hasSoundings={!!fix && soundings.some((s) => s.rate != null)} />
     </div>

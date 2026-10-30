@@ -163,6 +163,7 @@ export function CalculatorPage() {
         <div className="h-[23rem] sm:h-[30rem] lg:sticky lg:top-6 lg:h-[calc(100vh-8rem)] lg:min-h-[38rem]">
           <ChartMap
             points={points.data ?? []}
+            error={points.isError}
             fix={fix}
             soundings={soundings}
             highlight={muniCode}

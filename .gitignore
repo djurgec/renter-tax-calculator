@@ -20,3 +20,9 @@ web/dist/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Playwright
+web/test-results/
+web/playwright-report/
+web/blob-report/
+web/playwright/.cache/

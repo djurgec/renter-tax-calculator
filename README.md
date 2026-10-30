@@ -99,6 +99,28 @@ pytest
 other tests use a small built-in database. For the frontend, run
 `npm run build` (type-check and production build) and `npm run lint` in `web/`.
 
+#### Browser tests (Playwright)
+
+End-to-end tests in `web/e2e/` drive the real app in Chromium, at desktop and
+phone size. Once, after `npm install` in `web/`, download the browser:
+
+```bash
+npx playwright install chromium
+```
+
+Then, in `web/`:
+
+```bash
+npm run test:e2e      # run all browser tests
+npm run test:e2e:ui   # interactive mode: watch, step through, pick tests
+npx playwright show-report   # last run's report, with screenshots of failures
+```
+
+The tests start their own API on port 8765 with the small test database
+(`tests/e2e_server.py`) and a dev server on port 5174, so they need neither the
+real database nor a running app, and the expected amounts never change. They
+use `python` when the conda environment is active and `uv run python` otherwise.
+
 ### Using uv instead
 
 Requires [uv](https://docs.astral.sh/uv/) and Node.js 20+. Replace step 1 with:

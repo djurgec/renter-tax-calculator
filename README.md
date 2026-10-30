@@ -135,6 +135,17 @@ repository: `emil-design-eng`, `impeccable` and `taste-skill` for UI design, and
 `skill-inspector` for reviewing a skill before adding it. Each is copied from its
 upstream repository with that project's licence.
 
+Limits set in `.claude/settings.json` for everyone working here through Claude Code:
+
+- **No local web servers from the design skills.** A hook
+  (`.claude/hooks/block-skill-servers.sh`) stops impeccable's live preview and
+  decision-page servers (`live`, `live-*`, `serve-question`) and taste-skill's
+  screenshot inspector (`scripts/inspect.mjs`, `scripts/scenes.mjs`). The skills
+  then review from the source code and show design options as text.
+- **impeccable telemetry off** (also in `.impeccable/config.json`). When a new
+  design starts, impeccable still fetches design directions from impeccable.style,
+  but that service is told not to record which ones were shown or picked.
+
 Every skill is scanned with NVIDIA [SkillSpector](https://github.com/NVIDIA/SkillSpector)
 (`.github/workflows/skills.yml`) when skills change and weekly. Findings a person
 has reviewed and accepted are recorded per skill in `.skillspector/<skill>.yaml`;

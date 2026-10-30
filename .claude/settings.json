@@ -1,0 +1,19 @@
+{
+  "env": {
+    "IMPECCABLE_NO_TELEMETRY": "1"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/block-skill-servers.sh\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

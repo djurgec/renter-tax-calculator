@@ -29,3 +29,6 @@ web/playwright/.cache/
 
 # SkillSpector reports (scripts/scan-skills.sh)
 skillspector-reports/
+
+# impeccable: local roll records
+.impeccable/questions/

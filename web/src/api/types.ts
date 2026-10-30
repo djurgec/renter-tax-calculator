@@ -185,3 +185,15 @@ export interface SourcesInfo {
     }
   } | null
 }
+
+export interface MapPoint {
+  code: number
+  name: string
+  tourism_category: string | null
+  lat: number
+  lon: number
+  /** Municipality-wide per-bed rate when the table has exactly one */
+  rate_bed: number | null
+  rate_min: number | null
+  rate_max: number | null
+}

@@ -179,6 +179,17 @@ def test_neighbours(client):
     assert all(o["pausal_rate_bed"] is None for o in otok if o["name"] == "Otok")
 
 
+def test_map_points(client):
+    pts = {p["code"]: p for p in client.get("/api/map").json()}
+    assert len(pts) == 5
+    # Dubrovnik: one municipality-wide rate plus street and house-number rules
+    assert pts[981]["rate_bed"] == 150.0
+    assert (pts[981]["rate_min"], pts[981]["rate_max"]) == (100.0, 250.0)
+    assert pts[981]["lat"] == 42.65 and pts[981]["tourism_category"] == "I"
+    # Otok has two municipality-wide rates in the official table -> no single rate
+    assert pts[3140]["rate_bed"] is None and pts[3140]["rate_max"] == 60.0
+
+
 def test_sources_and_health(client):
     s = client.get("/api/meta/sources").json()
     assert {d["key"] for d in s["datasets"]} >= {"porezna_pausal", "dgu_addresses"}

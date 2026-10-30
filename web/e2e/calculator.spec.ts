@@ -88,3 +88,29 @@ test('"Promijeni adresu" goes back to the search', async ({ page }) => {
   await expect(page.getByRole('combobox', { name: 'Adresa nekretnine' })).toBeVisible()
   await expect(page).not.toHaveURL(/[?&]a=/)
 })
+
+test('the chart shows every municipality and marks the chosen address', async ({ page }) => {
+  const chart = page.getByRole('img', { name: /paušalni porez po krevetu za 5 općina/ })
+  await expect(chart).toBeVisible()
+  await expect(chart.locator('circle')).toHaveCount(5)
+
+  await page.goto('/?a=KB.3&b=2')
+  await expect(page.getByText('vaša adresa')).toBeVisible()
+  // neighbours' rates appear as soundings around the fix (Konavle: 120 per bed)
+  await expect(chart.locator('text', { hasText: /^120$/ })).toBeVisible()
+  await page.getByRole('button', { name: 'Cijela Hrvatska' }).click()
+  await expect(page.getByRole('button', { name: 'Približi adresu' })).toBeVisible()
+})
+
+test('on a phone the total follows the form and leads back to the result', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'the sticky total exists only on small screens')
+  await page.goto('/?a=KB.5&b=4&p=80')
+  await expect(total(page)).toHaveText(/^1\.196,32\s€$/)
+
+  await page.getByRole('spinbutton', { name: 'Kreveti' }).scrollIntoViewIfNeeded()
+  await page.getByRole('button', { name: /: Kreveti$/ }).last().click()
+  const bar = page.getByRole('button', { name: /Ukupno godišnje.*1\.395,40/ })
+  await expect(bar).toBeVisible()
+  await bar.click()
+  await expect(total(page)).toBeInViewport()
+})

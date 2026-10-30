@@ -1,42 +1,78 @@
 @import "tailwindcss";
 
-/* Semantic colour tokens; components use these names, never raw palette colours. */
+/*
+ * Pomorska karta: Croatia's tax rates read like a nautical chart. Shallow-water blue ground,
+ * deep-water white panels, chart-buff land, navy ink, and chart magenta for "you" (the
+ * address fix, your rate). Components use these semantic names, never raw palette colours.
+ */
 :root {
-  --bg: #f6f8fa;
-  --surface: #ffffff;
-  --surface-2: #eef2f6;
-  --text: #14202b;
-  --muted: #536271;
-  --line: #d5dde5;
-  --brand: #0b5c8e;
-  --brand-strong: #084a73;
-  --brand-soft: #e3f0f8;
+  --bg: #d6ebf4;            /* shallow water */
+  --surface: #ffffff;       /* deep water */
+  --surface-2: #eaf4f9;     /* very shallow, for quiet fills inside panels */
+  --text: #0f2438;          /* chart navy ink */
+  --muted: #47596b;         /* 6.4:1 on white, 5.1:1 on --bg */
+  --line: #d3e2ea;
+  --line-strong: #9fbccb;
+  --brand: #12324f;         /* navy: header, primary controls */
+  --brand-soft: #e3eef5;
   --on-brand: #ffffff;
-  --accent: #c8452f;
-  --warn-bg: #fff6e0;
-  --warn-line: #f0c96a;
-  --warn-text: #5c4100;
+  --on-brand-muted: #a9c4dc;
+  --fix: #b0186b;           /* chart magenta: you */
+  --fix-soft: #f7e1ec;
+  --sounding: #2b6a8e;      /* italic depth figures */
+  --land: #efe0b1;
+  --land-edge: #b89f5f;
+  --land-other: #f5ecd2;
+  --land-other-edge: #d9c99a;
+  --sea: #e7f4fa;
+  --iso-1: #d2eaf4;
+  --iso-2: #c0e0ee;
+  --iso-3: #afd6e8;
+  --rate-1: #d9ecf4;
+  --rate-1-edge: #8fb9cf;
+  --rate-2: #8fc3dc;
+  --rate-3: #3f8db8;
+  --rate-4: #16486e;
+  --warn-bg: #fbefd6;
+  --warn-text: #5a3f06;
   --ok: #1f7a4d;
   --bad: #b3261e;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f161d;
-    --surface: #17212b;
-    --surface-2: #1f2b37;
-    --text: #e6edf3;
-    --muted: #9aabbb;
-    --line: #2e3d4b;
-    --brand: #5fb3e8;
-    --brand-strong: #8cc9f0;
-    --brand-soft: #16354b;
-    --on-brand: #06263a;
-    --accent: #f08a74;
-    --warn-bg: #3a2d0c;
-    --warn-line: #7a5b17;
-    --warn-text: #f5dc9c;
+    /* the chart under a night-time red-dimmed lamp: dark sea, muted land, bright fix */
+    --bg: #0b1c2a;
+    --surface: #10283a;
+    --surface-2: #163246;
+    --text: #e6eef4;
+    --muted: #9db1c1;
+    --line: #23405a;
+    --line-strong: #3d6280;
+    --brand: #081521;
+    --brand-soft: #173a50;
+    --on-brand: #eef4f8;
+    --on-brand-muted: #8eaac0;
+    --fix: #ff5fae;
+    --fix-soft: #3b1630;
+    --sounding: #8cc4e4;
+    --land: #3a3627;
+    --land-edge: #7c6f45;
+    --land-other: #23271f;
+    --land-other-edge: #3d3f30;
+    --sea: #0d2233;
+    --iso-1: #10293c;
+    --iso-2: #143146;
+    --iso-3: #193a51;
+    --rate-1: #2a4357;
+    --rate-1-edge: #4f7491;
+    --rate-2: #4f8fb4;
+    --rate-3: #8cc4e4;
+    --rate-4: #d9eef9;
+    --warn-bg: #36290c;
+    --warn-text: #f3d99a;
     --ok: #5fcf96;
     --bad: #ff8a80;
     color-scheme: dark;
@@ -50,28 +86,65 @@
   --color-ink: var(--text);
   --color-muted: var(--muted);
   --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
   --color-brand: var(--brand);
-  --color-brand-strong: var(--brand-strong);
   --color-brand-soft: var(--brand-soft);
   --color-on-brand: var(--on-brand);
-  --color-accent: var(--accent);
+  --color-on-brand-muted: var(--on-brand-muted);
+  --color-fix: var(--fix);
+  --color-fix-soft: var(--fix-soft);
+  --color-sounding: var(--sounding);
   --color-warn-bg: var(--warn-bg);
-  --color-warn-line: var(--warn-line);
   --color-warn-text: var(--warn-text);
   --color-ok: var(--ok);
   --color-bad: var(--bad);
-  --font-sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Barlow", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Spectral", Georgia, serif;
 }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
+@layer base {
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    caret-color: var(--fix);
+    scrollbar-color: var(--line-strong) var(--bg);
+  }
+
+  h1,
+  .display {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--fix-soft);
+    color: var(--text);
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    accent-color: var(--fix);
+  }
 }
 
 :focus-visible {
-  outline: 2px solid var(--brand);
+  outline: 2px solid var(--fix);
   outline-offset: 2px;
 }
 
@@ -79,14 +152,85 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Leaflet controls inherit the page font and stay readable in dark mode */
-.leaflet-container {
-  font: inherit;
-  background: var(--surface-2);
+/* Pressable things answer the press; keyboard activation does not animate. */
+.press {
+  transition: transform 160ms var(--ease-out), background-color 150ms ease, border-color 150ms ease,
+    color 150ms ease;
+}
+.press:active:not(:disabled) {
+  transform: scale(0.96);
 }
 
-/* Tailwind's preflight sets img { max-width: 100% }, which collapses Leaflet tiles */
-.leaflet-container img {
-  max-width: none !important;
-  max-height: none !important;
+/* The suggestion list grows from the field it belongs to. */
+.dropdown {
+  transform-origin: top center;
+  transition: opacity 150ms var(--ease-out), transform 150ms var(--ease-out);
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+}
+
+/* A new total settles in; a short blur bridges the old and the new value. */
+@keyframes settle {
+  from {
+    opacity: 0.35;
+    filter: blur(3px);
+    transform: translateY(3px);
+  }
+}
+.settle {
+  animation: settle 260ms var(--ease-out);
+}
+
+/* The position fix lands on the chart: one ring contracts onto the point. */
+@keyframes fix-land {
+  from {
+    r: 34;
+    opacity: 0;
+  }
+  to {
+    r: 13;
+    opacity: 1;
+  }
+}
+.fix-ring {
+  animation: fix-land 520ms var(--ease-out);
+}
+
+/* Soundings fade in after the fix, so the eye goes to the point first. */
+@keyframes sounding-in {
+  from {
+    opacity: 0;
+  }
+}
+.sounding {
+  animation: sounding-in 400ms ease-out 260ms both;
+}
+
+.sticky-total {
+  transition: transform 240ms var(--ease-out), opacity 200ms var(--ease-out);
+}
+.sticky-total[data-hidden="true"] {
+  transform: translateY(110%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .settle,
+  .fix-ring,
+  .sounding {
+    animation: none;
+  }
+  .press:active:not(:disabled) {
+    transform: none;
+  }
+  .dropdown,
+  .sticky-total {
+    transition: opacity 150ms ease;
+  }
+  .sticky-total[data-hidden="true"] {
+    transform: none;
+  }
 }

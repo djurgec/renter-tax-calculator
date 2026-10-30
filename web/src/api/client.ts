@@ -3,6 +3,7 @@ import type {
   CalculateRequest,
   CalculationResult,
   HouseNumber,
+  MapPoint,
   MunicipalityDetail,
   MunicipalitySummary,
   Neighbour,
@@ -54,5 +55,6 @@ export const api = {
   municipalities: () => request<MunicipalitySummary[]>('/municipalities'),
   municipality: (code: number) => request<MunicipalityDetail>(`/municipalities/${code}`),
   neighbours: (code: number) => request<Neighbour[]>(`/municipalities/${code}/neighbours`),
+  map: () => request<MapPoint[]>('/map'),
   sources: () => request<SourcesInfo>('/meta/sources'),
 }

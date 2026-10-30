@@ -31,3 +31,14 @@ test('unknown pages show the not-found page', async ({ page }) => {
   await page.goto('/ne-postoji')
   await expect(page.getByRole('link', { name: /kalkulator/i }).first()).toBeVisible()
 })
+
+test('clicking a municipality on the chart opens its page', async ({ page }) => {
+  await page.goto('/opcine')
+  const chart = page.getByRole('img', { name: /Karta Hrvatske/ })
+  await expect(chart.locator('circle')).toHaveCount(5)
+  await page.getByRole('link', { name: /Konavle/ }).hover()
+  await expect(page.getByRole('status').filter({ hasText: 'Konavle' })).toBeVisible()
+  // the dot may sit under the legend on small screens, so fire the click on it directly
+  await chart.locator('circle').first().dispatchEvent('click')
+  await expect(page).toHaveURL(/\/opcine\/\d+$/)
+})

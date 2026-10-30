@@ -9,6 +9,7 @@ const hr = {
   languageLabel: 'Switch to English',
   footer:
     'Informativni izračun iz otvorenih podataka Porezne uprave, DGU-a, MPUDT-a i Hrvatske pošte. Konačni iznos utvrđuje porezno tijelo rješenjem.',
+  mapCredit: 'Obris karte: Natural Earth.',
   loading: 'Učitavanje…',
   error: 'Nešto nije u redu. Pokušajte ponovno.',
   apiDown: 'Poslužitelj nije dostupan. Je li API pokrenut?',
@@ -94,6 +95,23 @@ const hr = {
     municipalityPage: 'Sve stope za {{name}}',
     disclaimer:
       'Informativni izračun. Konačni iznos utvrđuje porezno tijelo rješenjem; provjerite odluku svoje općine.',
+  },
+  chart: {
+    title: 'Paušal po krevetu, 2026.',
+    sea: 'Jadransko more',
+    label: 'Karta Hrvatske: paušalni porez po krevetu za {{count}} općina i gradova',
+    upTo: 'do {{amount}}',
+    between: '{{from}}–{{to}}',
+    andMore: '{{amount}} i više',
+    several: 'više stopa',
+    yourAddress: 'vaša adresa',
+    perBed: '{{amount}} po krevetu',
+    rangePerBed: '{{from}}–{{to}} po krevetu',
+    noRate: 'nema stope',
+    neighbours: 'Brojke oko adrese: stope susjednih općina',
+    open: 'Otvori {{name}}',
+    zoomOut: 'Cijela Hrvatska',
+    zoomIn: 'Približi adresu',
   },
   units: {
     bed: 'krevet',
@@ -214,6 +232,7 @@ const en: Dict = {
   languageLabel: 'Prebaci na hrvatski',
   footer:
     'Indicative calculation from open data by Porezna uprava, DGU, MPUDT and Hrvatska pošta. The final amount is set by the tax authority.',
+  mapCredit: 'Map outline: Natural Earth.',
   loading: 'Loading…',
   error: 'Something went wrong. Please try again.',
   apiDown: 'The server is not reachable. Is the API running?',
@@ -298,6 +317,23 @@ const en: Dict = {
     municipalityPage: 'All rates for {{name}}',
     disclaimer:
       "Indicative only. The tax authority sets the final amount; check your municipality's decision.",
+  },
+  chart: {
+    title: 'Flat-rate tax per bed, 2026',
+    sea: 'Adriatic Sea',
+    label: 'Map of Croatia: flat-rate tax per bed for {{count}} municipalities',
+    upTo: 'up to {{amount}}',
+    between: '{{from}}–{{to}}',
+    andMore: '{{amount}} and more',
+    several: 'several rates',
+    yourAddress: 'your address',
+    perBed: '{{amount}} per bed',
+    rangePerBed: '{{from}}–{{to}} per bed',
+    noRate: 'no rate',
+    neighbours: 'Figures around the address: neighbouring municipalities’ rates',
+    open: 'Open {{name}}',
+    zoomOut: 'All of Croatia',
+    zoomIn: 'Zoom to address',
   },
   units: { bed: 'bed', camp_unit: 'camp pitch', robinson_unit: 'robinson unit' },
   warnings: {

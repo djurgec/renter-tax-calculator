@@ -65,10 +65,14 @@ export function AddressSearch({ onSelect }: Props) {
 
   return (
     <div>
-      <label htmlFor={`${id}-input`} className="mb-1 block font-medium">
+      <label htmlFor={`${id}-input`} className="sr-only">
         {t('search.label')}
       </label>
       <div className="relative">
+        <svg aria-hidden="true" viewBox="0 0 20 20" className="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-ink">
+          <circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" strokeWidth="1.9" />
+          <path d="M13 13l4 4" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
+        </svg>
         <input
           id={`${id}-input`}
           type="text"
@@ -91,13 +95,13 @@ export function AddressSearch({ onSelect }: Props) {
           onFocus={() => setOpen(true)}
           onBlur={() => setTimeout(() => setOpen(false), 150)}
           onKeyDown={onKeyDown}
-          className="w-full rounded-lg border border-line bg-surface px-3 py-3 text-base text-ink placeholder:text-muted focus:border-brand"
+          className="h-16 w-full rounded-2xl bg-surface pl-14 pr-5 text-[1.2rem] text-ink shadow-[0_1px_0_var(--line-strong)] placeholder:text-muted focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fix"
         />
         {showList && (
           <ul
             id={`${id}-list`}
             role="listbox"
-            className="absolute z-[1000] mt-1 max-h-80 w-full overflow-auto rounded-lg border border-line bg-surface py-1 shadow-lg"
+            className="dropdown absolute z-[1000] mt-2 max-h-80 w-full overflow-auto rounded-2xl bg-surface p-1.5 shadow-[0_14px_36px_rgb(15_36_56/0.2)]"
           >
             {results.length === 0 && (
               <li className="px-3 py-2 text-muted" role="presentation">
@@ -113,7 +117,7 @@ export function AddressSearch({ onSelect }: Props) {
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => choose(r)}
                 onMouseEnter={() => setActive(i)}
-                className={`flex cursor-pointer items-center justify-between gap-3 px-3 py-2 ${
+                className={`flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3.5 py-2.5 ${
                   i === active ? 'bg-brand-soft' : ''
                 }`}
               >
@@ -128,7 +132,7 @@ export function AddressSearch({ onSelect }: Props) {
           </ul>
         )}
       </div>
-      <p id={`${id}-hint`} className="mt-1 text-sm text-muted">
+      <p id={`${id}-hint`} className="mt-2 px-1 text-sm text-muted">
         {t('search.hint')}
       </p>
       {search.isError && <ErrorBox error={search.error} />}
@@ -155,8 +159,8 @@ function HouseNumberPicker({
   const matching = (numbers.data ?? []).filter((n) => n.house_number.toUpperCase().startsWith(f))
 
   return (
-    <fieldset className="mt-4 rounded-lg border border-line p-3">
-      <legend className="px-1 font-medium">{t('search.pickNumber')}</legend>
+    <fieldset className="mt-3 rounded-2xl bg-surface p-4">
+      <legend className="float-left mb-3 w-full font-semibold">{t('search.pickNumber')}</legend>
       <label htmlFor={id} className="sr-only">
         {t('search.filterNumbers')}
       </label>
@@ -167,7 +171,7 @@ function HouseNumberPicker({
         value={filter}
         placeholder={t('search.filterNumbers')}
         onChange={(e) => setFilter(e.target.value)}
-        className="mb-3 w-40 rounded-md border border-line bg-surface px-2 py-1.5"
+        className="mb-3 h-10 w-40 rounded-xl border border-line-strong bg-surface px-3 focus:border-fix focus:outline-none"
       />
       {numbers.isError && <ErrorBox error={numbers.error} />}
       <div className="flex flex-wrap gap-1.5">
@@ -176,7 +180,7 @@ function HouseNumberPicker({
             key={n.address_id}
             type="button"
             onClick={() => onPick(n.address_id)}
-            className="tabular min-w-11 rounded-md border border-line px-2 py-1.5 text-sm hover:border-brand hover:bg-brand-soft"
+            className="press tabular h-10 min-w-11 rounded-full border border-line-strong px-3 font-semibold hover:border-fix hover:text-fix"
           >
             {n.house_number}
           </button>

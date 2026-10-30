@@ -121,6 +121,36 @@ The tests start their own API on port 8765 with the small test database
 real database nor a running app, and the expected amounts never change. They
 use `python` when the conda environment is active and `uv run python` otherwise.
 
+#### Continuous integration
+
+GitHub Actions (`.github/workflows/ci.yml`) runs ruff and pytest, the frontend
+lint and build, and the Playwright tests on every push to `master` and `develop`
+and on every pull request. When the browser tests fail, the run's
+`playwright-report` artifact has screenshots and traces of the failures.
+
+### Claude skills
+
+`.claude/skills/` holds skills that Claude Code loads when working in this
+repository: `emil-design-eng`, `impeccable` and `taste-skill` for UI design, and
+`skill-inspector` for reviewing a skill before adding it. Each is copied from its
+upstream repository with that project's licence.
+
+Every skill is scanned with NVIDIA [SkillSpector](https://github.com/NVIDIA/SkillSpector)
+(`.github/workflows/skills.yml`) when skills change and weekly. Findings a person
+has reviewed and accepted are recorded per skill in `.skillspector/<skill>.yaml`;
+anything else fails the check. To scan locally:
+
+```bash
+uv tool install "git+https://github.com/NVIDIA/skillspector.git@v2.13.2"
+scripts/scan-skills.sh
+```
+
+To add a skill: copy it into `.claude/skills/<name>/` and run the scan. If it
+reports findings, review them (ask Claude to "inspect this skill" to use
+`skill-inspector`) and, if they are acceptable, record them with
+`REASON="what you checked" scripts/scan-skills.sh --accept <name>`. Updating a
+skill brings its findings back for another review.
+
 ### Using uv instead
 
 Requires [uv](https://docs.astral.sh/uv/) and Node.js 20+. Replace step 1 with:

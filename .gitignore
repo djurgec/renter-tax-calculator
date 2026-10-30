@@ -26,3 +26,6 @@ web/test-results/
 web/playwright-report/
 web/blob-report/
 web/playwright/.cache/
+
+# SkillSpector reports (scripts/scan-skills.sh)
+skillspector-reports/

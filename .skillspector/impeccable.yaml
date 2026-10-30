@@ -1,0 +1,406 @@
+# SkillSpector baseline — findings listed here are suppressed on future scans.
+# Edit 'reason' fields and add glob 'rules' as needed. See docs/SUPPRESSION.md.
+version: 2
+scanner_version: 2.13.2
+rules: []
+fingerprints:
+- hash: sha256:cd5f3e8fdee410036232380845753e49725f459e726846c6ce2d158b209e16b8
+  rule_id: LP3
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:302794a0ac96c2aca313d8f837d5932f3ea7bb192b1b78033fe76a92721bbaea
+  rule_id: RP1
+  file: reference/doctor.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:a2c3163cafe70126eeb0b19a647b8a44e4b601172bd98747957912e629f37703
+  rule_id: RP1
+  file: reference/hooks.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:0fad18ca381b76d84f1b6d12fbf71f60314c47c2851ee16b6e35afae317f57d9
+  rule_id: AS1
+  file: reference/hooks.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:347ed8e409331cc3489c96afb0bb9a5c3ed7793cb1e6537223873ecac6b84c22
+  rule_id: AS1
+  file: reference/hooks.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:e1934d982ec77c68acac17cb7776dafdbc165504498ef48945bb2f928d3d0f92
+  rule_id: AS3
+  file: reference/hooks.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:11f4354b7b643de15d34ca31a437f69a7623c1973b4e479a97284c5e9971066e
+  rule_id: AS3
+  file: reference/live.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:514581750fa93a8d8c27a76ecd5a330608da9c0a73ad9f39bc7447eb48f8f974
+  rule_id: AR2
+  file: reference/critique.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:3ab5d1c374860ffe189446a3534d693413b3259d9fa24b4b053563d1e205abc9
+  rule_id: AR2
+  file: reference/degraded/finish-reviewer.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:43f35b2ce3bf2353ee90e2e25312c7703596f55ea6149c8e6aab34501f816f37
+  rule_id: AR2
+  file: reference/new-work.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:3f58791cdababb9241b774c835969951fd8bdafced08a3f7511c2643548d22db
+  rule_id: E1
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:1b08208d6193ef1581d5936a88f67a3527f36f3f9af5a545cf214e84a760ee9c
+  rule_id: E1
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:60bd3c8252e913a07aac4659c1769977bf17342d2329c8f06c0a6be33d8596ce
+  rule_id: EA3
+  file: LICENSE
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:ced0d79aba17b456e083669c82d2aa141442afd99fe6eecb9173ae335de07d31
+  rule_id: EA2
+  file: reference/audit.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:b51bb21c1a7a764e0af1bbcc9bbbec53a81479092bcdc51c3c3da3fcc20e7282
+  rule_id: EA2
+  file: reference/audit.native.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:98fc9c13642debbd763e86469402e9f0c63c2bb2cfdd4120300d4bf60bfdbcd6
+  rule_id: EA2
+  file: reference/critique.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:8b1e459df3f61a4bba0c7884edcaea543e0a06b2e80f3c47a64ca6becbdda4e1
+  rule_id: EA2
+  file: reference/degraded/finish-reviewer.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:0429db460e928fd0b736388b34c8d895d5adcea1f58c3967f5cfa5b3d6f97670
+  rule_id: EA2
+  file: reference/degraded/finish-reviewer.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:883e129d794b864c12bc6567e1e2bba5a5ab5885109cfc489f8aebf2566a68fa
+  rule_id: EA2
+  file: reference/degraded/finish-reviewer.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:fe3b088af324cb94ca622582d84f72597d5e31c4c7ec69b4f4d503a24103eeb6
+  rule_id: EA2
+  file: reference/degraded/finish-reviewer.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:1b256215755b2b09770eae2aaf4d2f612eb7fa04878fa3beb5ea6aeb94a95715
+  rule_id: EA2
+  file: reference/delight.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:b1188212a4db78455ab4d31e3cbad39df983203c1ebd80ccd48165de34b41b53
+  rule_id: EA2
+  file: reference/document.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:12a3d1c6340764873765b9bb6cf3a53455953b6cb71944413c0110e75aa8010a
+  rule_id: EA2
+  file: reference/init.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:8de43ba4fd2cb7c3364c0dff71736c8459509b3b4abce7d23f9f3166638be1da
+  rule_id: EA2
+  file: reference/live.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:a0007f08f8afdba8e51c508aecce23be02dc4d0b374ec56f7e77a6da5d04e95d
+  rule_id: EA2
+  file: reference/new-work.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:2a8aabe87b5e70de5f5dc7bce74790f802e522b4a4cb290ce54aaed9e5771824
+  rule_id: EA2
+  file: reference/new-work.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:bfb124a02452abdf31506943a0b2c4d2a488d0ef58c977b851becabfc385fa6b
+  rule_id: EA2
+  file: reference/visualize.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:d76d0b7075671745694e275182dd6f8294b38df4b2a4b0c47e4c78f90ad711fd
+  rule_id: EA2
+  file: reference/visualize.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:0dcfd97570e39aba9375d2e17322b57623cbff0055a1d5f804fef5d339c5370c
+  rule_id: MP3
+  file: reference/colorize.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:d63a71baae86a3c9526bce4d334702cfcbddbec2210c8bf4eb9fcd40e5d7769a
+  rule_id: MP3
+  file: reference/mode-operate.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:d9fc8e56ad04988b541d9b64a4b4759b174c0b6d74ae9de0256eaf804dd24361
+  rule_id: MP1
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:c418bbbce4f41468b0572ee40d3cc233156da93d1d965d48a55b98d7b797e436
+  rule_id: RA2
+  file: reference/hooks.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:dd751d17da0abe578b38c23686627df732e658025503215c3c3e2749c8ced599
+  rule_id: SSRF2
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:79be14b76299595e675095f6f1b0df4739f879a36c88d6d926592d7b06040ad2
+  rule_id: SSRF2
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:e8ea18ddf2f6a1f481e805d269ed59e1e5e51bda97ac8af708cc8fc03d1f6adc
+  rule_id: SSRF2
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:4916ec44e007ec57c9d44f8be48ab8d6e564faa8180602bae744d75a7848b3bd
+  rule_id: SSRF2
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:89c52c86c497f11afcee16ae5aaf5696319a894f299636115f7fe4c3637d3fc9
+  rule_id: SSRF2
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:7d6a2b6163726222d5e1ad86e891f21fa9cc0c39d8b2c8b3ddb2ad2aa5b3b577
+  rule_id: SSRF2
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:f20561455c59d6766026d623f9ef269d22967091310da494dad36f3d3cf6d988
+  rule_id: SSRF2
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:eebe16eaafe42782eb6313c6f183a7d8b79e2292d370132ec711b42e6d63884c
+  rule_id: SSRF2
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:bc1ab52dad1e4c9b6feb9641b47c10cfbde0d14b4584e7ba8cb5d24ee0fa3bd5
+  rule_id: SSRF2
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:0f9204fcec021330ff154ee3643432d754cf95d1caffdecfde6dbdcf80a18829
+  rule_id: SSRF2
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:9a4d810ffa17d109ccc2cde619b2b54728e802683779b3af11dcf6db3250897e
+  rule_id: SSRF2
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:678dde23ac58ba23ad0a7d23b77bb075e12691085c72b8a0acbbe1becfd22fca
+  rule_id: SSRF2
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:248c6f4bc9927b60d7adf6a388e8b906bf8dde4af892da738174b76d408cc783
+  rule_id: SSRF2
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:91909b40b41a15900690e2085351890f2ada7b1f1e301584ca52b6e9a15c1f6f
+  rule_id: SSRF2
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:3ddef9dfdeaee46d6e51c2e402be7303ed8fd1ada090b7ed98e09d3b6c2cacbc
+  rule_id: TM1
+  file: scripts/live-browser.js
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:8957395fa3ad39f14f541e0343ea4f594b113934ed0f55e130b74abe679d7f5d
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:6d43ee6df147d5f86391eaa64b1e88dd4703fb63ef7e8de7eb4198f030d93360
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'
+- hash: sha256:d2ca4afaebfc6579b8cc63358bc21ef84dc089f9db24e23aba10a80e1f69bdec
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design guidance
+    (do not judge, new identity), docs for the opt-in /impeccable hooks command that
+    edits Claude settings, and files too large to parse fully (AE1). Network use is
+    documented: checksum-verified engine download from the project''s GitHub releases
+    and a localhost live-preview server.'

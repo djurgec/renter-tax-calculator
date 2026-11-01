@@ -3,11 +3,13 @@
 import json
 import os
 import sqlite3
+import time
 from pathlib import Path
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, JSONResponse
 
 from .. import __version__
 from . import calculate as calc
@@ -129,12 +131,71 @@ def create_app(db_path: Path | None = None) -> FastAPI:
     app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["GET", "POST"],
                        allow_headers=["Content-Type"])
     app.include_router(router)
+    rate_limit = int(os.environ.get("PK_RATE_LIMIT", "0"))
+    if rate_limit > 0:
+        _add_rate_limit(app, rate_limit)
+    web_dir = os.environ.get("PK_WEB_DIR")
+    if web_dir:
+        _serve_frontend(app, Path(web_dir))
     return app
+
+
+def _add_rate_limit(app: FastAPI, per_minute: int) -> None:
+    """At most `per_minute` API requests per client IP per minute (fixed window).
+
+    One process holds the counters, which is enough for a single small instance. Behind a
+    proxy the client IP comes from X-Forwarded-For (uvicorn: FORWARDED_ALLOW_IPS).
+    """
+    hits: dict[str, tuple[int, int]] = {}
+
+    @app.middleware("http")
+    async def rate_limit(request: Request, call_next):
+        path = request.url.path
+        if not path.startswith("/api/") or path == "/api/health":
+            return await call_next(request)
+        window = int(time.time() // 60)
+        ip = request.client.host if request.client else "unknown"
+        seen, count = hits.get(ip, (window, 0))
+        count = count + 1 if seen == window else 1
+        hits[ip] = (window, count)
+        if len(hits) > 10_000:  # forget clients from earlier minutes
+            for key in [k for k, (w, _) in hits.items() if w != window]:
+                del hits[key]
+        if count > per_minute:
+            return JSONResponse({"detail": "too many requests, try again in a minute"},
+                                status_code=429,
+                                headers={"Retry-After": str(60 - int(time.time()) % 60)})
+        return await call_next(request)
+
+
+def _serve_frontend(app: FastAPI, web_dir: Path) -> None:
+    """Serve the built web app (web/dist) next to the API, on the same origin.
+
+    Files that exist are returned as they are; any other path gets index.html, so the
+    app's own routes (/opcine/981, /o-podacima) work on reload. Unknown /api paths stay 404.
+    """
+    root = web_dir.resolve()
+    index = root / "index.html"
+    if not index.exists():
+        raise RuntimeError(f"{index} not found: run `npm run build` in web/ or unset PK_WEB_DIR")
+
+    @app.get("/{path:path}", include_in_schema=False)
+    def frontend(path: str):
+        if path == "api" or path.startswith("api/"):
+            raise HTTPException(404, "Not Found")
+        file = (root / path).resolve()
+        if path and file.is_file() and file.is_relative_to(root):
+            # Vite puts a content hash in every asset name, so those never change
+            cache = ("public, max-age=31536000, immutable" if path.startswith("assets/")
+                     else "public, max-age=3600")
+            return FileResponse(file, headers={"Cache-Control": cache})
+        return FileResponse(index, headers={"Cache-Control": "no-cache"})
 
 
 def run() -> None:
     import uvicorn
 
+    # PK_PORT wins; PORT is what hosts such as Render set
+    port = os.environ.get("PK_PORT") or os.environ.get("PORT") or "8000"
     uvicorn.run("porezni_kompas.api.main:create_app", factory=True,
-                host=os.environ.get("PK_HOST", "127.0.0.1"),
-                port=int(os.environ.get("PK_PORT", "8000")))
+                host=os.environ.get("PK_HOST", "127.0.0.1"), port=int(port))

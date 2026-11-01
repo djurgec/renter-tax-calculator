@@ -1,0 +1,64 @@
+name: Data
+
+# Builds porezni_kompas.sqlite from the public sources and publishes it as the GitHub
+# release "data", which the Dockerfile downloads. Runs by hand and weekly; the release is
+# replaced only when every validation check passes (the ETL exits 1 otherwise).
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 1" # Mondays 03:00 UTC
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build and publish the database
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      # optional: Render's deploy hook URL, so the site picks up the new data at once
+      RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+      - run: uv sync --locked --no-dev
+
+      - name: Run the ETL
+        run: uv run porezni-kompas-etl
+
+      - name: Checksum
+        working-directory: data/build
+        run: sha256sum porezni_kompas.sqlite > porezni_kompas.sqlite.sha256
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view data > /dev/null 2>&1; then
+            gh release create data --latest=false --title "Database" \
+              --notes "Built by the Data workflow from public sources; see validation_report.json. Downloaded by the Dockerfile."
+          fi
+          gh release upload data --clobber \
+            data/build/porezni_kompas.sqlite \
+            data/build/porezni_kompas.sqlite.sha256 \
+            data/build/validation_report.json
+
+      - name: Keep the validation report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: validation-report
+          path: data/build/validation_report.json
+          if-no-files-found: ignore
+
+      - name: Redeploy on Render
+        if: ${{ env.RENDER_DEPLOY_HOOK != '' }}
+        run: curl -fsS -X POST "$RENDER_DEPLOY_HOOK" > /dev/null

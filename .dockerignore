@@ -1,0 +1,20 @@
+# Only pyproject.toml, uv.lock, README.md, src/ and web/ are needed to build the image.
+.git
+.github
+.claude
+.impeccable
+.skillspector
+.venv
+.pytest_cache
+.ruff_cache
+**/__pycache__
+data
+docs
+scripts
+tests
+web/node_modules
+web/dist
+web/e2e
+web/test-results
+web/playwright-report
+*.log

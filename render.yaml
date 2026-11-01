@@ -1,0 +1,16 @@
+# Render Blueprint: one free web service built from the Dockerfile.
+# Create it once in the Render dashboard: New > Blueprint > this repository.
+services:
+  - type: web
+    name: porezni-kompas
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: master
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    # deploy a push to master only after the CI workflow has passed
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: PK_RATE_LIMIT
+        value: "300"

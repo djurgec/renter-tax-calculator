@@ -199,12 +199,71 @@ API settings (environment variables):
 |---|---|---|
 | `PK_DB_PATH` | `data/build/porezni_kompas.sqlite` | database file |
 | `PK_HOST` | `127.0.0.1` | API host |
-| `PK_PORT` | `8000` | API port |
+| `PK_PORT` | `8000` | API port (if unset, `PORT` is used, which hosts such as Render set) |
 | `PK_CORS_ORIGINS` | `http://localhost:5173` | allowed browser origins, comma-separated |
+| `PK_WEB_DIR` | unset | serve the built frontend (`web/dist`) from the API, on the same origin |
+| `PK_RATE_LIMIT` | `0` (off) | API requests per client IP per minute; `/api/health` is never limited |
 
 Frontend: `PK_API_URL` (dev-server proxy target, default
 `http://127.0.0.1:8000`), `VITE_API_BASE` (API base path in a production build,
 default `/api`). `npm run build` writes the static site to `web/dist/`.
+
+## Deployment
+
+Production is one Docker image (`Dockerfile`) that serves the web app and the API
+on one port, hosted on a free [Render](https://render.com) web service
+(`render.yaml`).
+
+How the pieces fit:
+
+1. **Database:** the **Data** workflow (`.github/workflows/data.yml`, run by hand
+   or weekly) runs the ETL on GitHub and publishes `porezni_kompas.sqlite`, its
+   SHA-256 and `validation_report.json` as the GitHub release **`data`**. It
+   replaces the release only if every validation check passes.
+2. **Image:** the Dockerfile builds the frontend, installs the Python package
+   from `uv.lock`, downloads the database from that release and checks the
+   SHA-256. A missing or mismatched file fails the build, so Render keeps the
+   previous version running.
+3. **Render** builds the image on every push to `master` once CI has passed.
+
+### First deployment (once)
+
+1. Make the repository public (Settings → General → Danger Zone → Change
+   visibility). The image downloads the database from the release, which needs
+   a public repository.
+2. Run the **Data** workflow: Actions → Data → Run workflow. It takes about
+   5 minutes and creates the `data` release.
+3. In Render: New → Blueprint → connect the GitHub repository. Render reads
+   `render.yaml` and creates the free web service `porezni-kompas` in Frankfurt.
+4. Open the URL Render shows (`https://porezni-kompas….onrender.com`).
+5. Optional: copy the service's deploy hook (Render → service → Settings →
+   Deploy Hook) into a repository secret named `RENDER_DEPLOY_HOOK`, so each
+   Data run redeploys the site with the new database at once.
+
+If the Data workflow cannot reach a source from GitHub's servers, build the
+database locally (`porezni-kompas-etl`), create a release named `data` by hand
+and upload the three files. Make the checksum with
+`sha256sum porezni_kompas.sqlite > porezni_kompas.sqlite.sha256` in `data/build/`.
+
+### Free-tier behaviour
+
+- The service sleeps after 15 minutes without visitors; the first request then
+  takes about a minute while it starts again.
+- Under the free limits (512 MB, about 0.1 CPU) the app uses about 50 MB of
+  memory. Most requests take 0.1–0.2 s. Very common search words such as
+  `ulica` alone can take about 2 s.
+- The API allows 300 requests per minute per visitor (`PK_RATE_LIMIT`).
+
+### Run the production image locally
+
+With a database built by step 2 of the Quick start:
+
+```bash
+docker compose up --build
+```
+
+Then open http://localhost:8000. Compose mounts `data/build/` instead of
+downloading the published database.
 
 ## API
 

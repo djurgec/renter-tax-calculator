@@ -43,9 +43,9 @@ Row numbers refer to the Excel row in `data/raw/porezna_pausal/pausal_2026.xlsx`
 
 ## API follow-ups
 
-- [ ] Rate limiting (`slowapi`), as planned in ARCHITECTURE.md section 9.
-- [ ] Very common search words (`ulica`, `put`) hit the 5,000-candidate cap (~160 ms) and may
-      drop good matches. Pre-filter with the settlement token when there is one.
+- [ ] Very common search words (`ulica`, `put`) hit the 5,000-candidate cap (~160 ms locally,
+      ~2.3 s on Render's 0.1 CPU) and may drop good matches. Pre-filter with the settlement token
+      when there is one.
 - [ ] Property-tax exemptions other than primary residence (long-term rent etc.) are not modelled;
       check the law and add inputs if needed.
 - [ ] Neighbour comparison shows no per-bed rate for municipalities without a single
@@ -54,10 +54,10 @@ Row numbers refer to the Excel row in `data/raw/porezna_pausal/pausal_2026.xlsx`
 
 ## Remaining from ARCHITECTURE.md
 
+- [ ] First Render deployment: make the repo public, run the Data workflow, create the
+      Blueprint (README → Deployment)
 - [ ] `docs/DATA_SOURCES.md` and `docs/DATA_QUALITY.md` (the figures above belong there)
 - [ ] Golden-address regression set covering every rule level
-- [ ] Docker Compose (api + nginx serving `web/dist`), optional AI assistant
-- [ ] Playwright E2E: search → calculate → result for 3 addresses
-- [ ] Production map tiles: tile.openstreetmap.org is fine for the demo, but its usage policy
-      forbids heavy use; switch to a hosted tile provider or self-hosted tiles if traffic grows
-- [ ] First commit
+- [ ] Ask open.data@mpudt.hr about the licences (see "Licences" above)
+- [ ] 3-minute video and submission (09.11.2026)
+- [ ] Optional: AI assistant (Ollama + RAG)

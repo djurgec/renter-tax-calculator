@@ -1,0 +1,16 @@
+# Run the production image locally on the database you built with porezni-kompas-etl:
+#   docker compose up --build      -> http://localhost:8000
+# The image is built without downloading the published database (DB_URL is empty);
+# data/build/ is mounted read-only in its place.
+services:
+  app:
+    build:
+      context: .
+      args:
+        DB_URL: ""
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/build:/app/data:ro
+    environment:
+      PK_RATE_LIMIT: "0"

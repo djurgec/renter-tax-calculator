@@ -355,18 +355,21 @@ UX requirements: mobile-first, works on slow connections, WCAG 2.1 AA
 
 ## 12. Deployment
 
-`docker-compose.yml`:
+As built (the original plan had nginx, an Ollama service and an ETL container):
 
-| Service | Image | Notes |
+| Piece | What | Notes |
 |---|---|---|
-| `api` | python:3.12-slim + uv | mounts `data/build/porezni_kompas.sqlite` read-only |
-| `web` | nginx:alpine | serves the Vite build, proxies `/api` to `api` |
-| `ollama` | ollama/ollama | optional profile `ai` |
-| `etl` | same image as `api` | run manually or by cron (`docker compose run etl`) |
+| `Dockerfile` | node:22-slim builds `web/dist`; python:3.12-slim + uv installs the package from `uv.lock` | FastAPI serves the frontend too (`PK_WEB_DIR`), so one port, one origin, no CORS |
+| Database | downloaded at image build from the GitHub release `data`, SHA-256 checked | missing or wrong file fails the build; the running version stays |
+| `.github/workflows/data.yml` | runs the ETL on GitHub (manual + weekly) and replaces the `data` release | only when every validation check passes; optional Render deploy hook |
+| `render.yaml` | free Render web service, Frankfurt, health check `/api/health` | deploys a push to `master` after CI passes |
+| `docker-compose.yml` | the same image locally, with `data/build/` mounted | `docker compose up --build` |
 
-Demo hosting: one small VPS (2 vCPU, 4–8 GB RAM) with Caddy for HTTPS, or the
-API on a container host + the static frontend on GitHub Pages. The jury needs
-a working link until results are published (17.11.2026).
+Measured with the free-tier limits (512 MB, 0.1 CPU): about 50 MB of memory,
+0.1–0.2 s for typical requests, about 2 s for a one-word search such as
+`ulica`, about 17 s to start. The free service sleeps after 15 minutes idle
+and needs about a minute to wake. The jury needs the link until results are
+published (17.11.2026).
 
 ---
 

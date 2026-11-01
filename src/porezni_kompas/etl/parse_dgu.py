@@ -40,7 +40,7 @@ class DguAddress:
     y3035: float | None
 
 
-def _members(zf: zipfile.ZipFile, name: str, chunk: int = 8 << 20) -> Iterator[str]:
+def iter_members(zf: zipfile.ZipFile, name: str, chunk: int = 8 << 20) -> Iterator[str]:
     buf = ""
     with zf.open(name) as fh:
         reader = io.TextIOWrapper(fh, encoding="utf-8")
@@ -55,7 +55,7 @@ def _members(zf: zipfile.ZipFile, name: str, chunk: int = 8 << 20) -> Iterator[s
             buf = buf[cut:]
 
 
-def _first(rx: re.Pattern, s: str) -> str:
+def first_match(rx: re.Pattern, s: str) -> str:
     m = rx.search(s)
     return m.group(1).strip() if m else ""
 
@@ -63,13 +63,15 @@ def _first(rx: re.Pattern, s: str) -> str:
 def iter_addresses(zip_path: Path) -> Iterator[DguAddress]:
     with zipfile.ZipFile(zip_path) as zf:
         settlements = {}
-        for m in _members(zf, "AdminUnitName.gml"):
-            if _first(_LEVEL, m) == "4thOrder":  # settlements (naselja)
-                settlements[_first(_ID, m)] = (_first(_TEXT, m), _first(_ALT, m))
-        streets = {_first(_ID, m): _first(_TEXT, m) for m in _members(zf, "ThoroughfareName.gml")}
-        posts = {_first(_ID, m): _first(_POSTCODE, m) for m in _members(zf, "PostalDescriptor.gml")}
+        for m in iter_members(zf, "AdminUnitName.gml"):
+            if first_match(_LEVEL, m) == "4thOrder":  # settlements (naselja)
+                settlements[first_match(_ID, m)] = (first_match(_TEXT, m), first_match(_ALT, m))
+        streets = {first_match(_ID, m): first_match(_TEXT, m)
+                   for m in iter_members(zf, "ThoroughfareName.gml")}
+        posts = {first_match(_ID, m): first_match(_POSTCODE, m)
+                 for m in iter_members(zf, "PostalDescriptor.gml")}
 
-        for m in _members(zf, "Address.gml"):
+        for m in iter_members(zf, "Address.gml"):
             comps = _COMPONENT.findall(m)
             settlement, settlement_code, street, postcode = "", "", "", ""
             for c in comps:
@@ -80,9 +82,9 @@ def iter_addresses(zip_path: Path) -> Iterator[DguAddress]:
                 elif c in settlements:
                     settlement, settlement_code = settlements[c]
             number = "".join(d for d, t in _DESIGNATOR.findall(m) if t in _NUMBER_PARTS)
-            pos = _first(_POS, m).split()
+            pos = first_match(_POS, m).split()
             yield DguAddress(
-                id=_first(_LOCAL_ID, m),
+                id=first_match(_LOCAL_ID, m),
                 settlement=settlement,
                 settlement_code=settlement_code,
                 street=street,

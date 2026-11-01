@@ -73,6 +73,15 @@ SOURCES: dict[str, Source] = {
             min_bytes=50_000_000,
         ),
         Source(
+            key="dgu_admin_units",
+            url="https://geoportal.dgu.hr/services/atom/INSPIRE_Administrative_Units_(AU).zip",
+            filename="INSPIRE_Administrative_Units_AU.zip",
+            publisher="Državna geodetska uprava",
+            dataset="Administrativne jedinice INSPIRE (Registar prostornih jedinica)",
+            licence="Otvorena dozvola",
+            min_bytes=100_000_000,
+        ),
+        Source(
             key="voters",
             url=f"{_PORTAL}/a4f06d5d-52bd-46b5-a4e7-cf01d4f6e227/resource/"
             "d3e8f75b-41cc-4e15-a3b6-c1cf3816c2bc/download/bb_po_adresi_13_05_2026.csv",

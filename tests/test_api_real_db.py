@@ -49,3 +49,25 @@ def test_runtime_rule_matches_the_etl(client):
         assert (got, r["pausal"]["level"]) == (rule_id, level), aid
         expected = json.loads(warnings) if warnings else []
         assert [w for w in r["warnings"] if w in expected] == expected, aid
+
+
+@pytest.mark.parametrize(("code", "rate_bed", "source_row"), [
+    # Općina Otok (Splitsko-dalmatinska): its decision of 27.11.2025 sets 20 EUR from 2026
+    (3140, 20.0, 1015),
+    # Grad Otok (Vukovarsko-srijemska): the other "Otok" row, by elimination
+    (5355, 60.0, 1016),
+    # Općina Sveta Nedelja (Istarska): its decision of 24.02.2025 sets 50 EUR
+    (4324, 50.0, 1272),
+    (4367, 30.0, 1271),
+])
+def test_duplicate_name_municipalities(client, code, rate_bed, source_row):
+    """The flat-rate table names these municipalities ambiguously; see the overrides file."""
+    con = sqlite3.connect(DB)
+    aid = con.execute("SELECT a.id FROM address a JOIN street s ON s.id = a.street_id "
+                      "WHERE s.municipality_code = ? LIMIT 1", (code,)).fetchone()[0]
+    con.close()
+    r = client.post("/api/calculate", json={"address_id": aid, "beds": 1}).json()
+    assert r["municipality"]["code"] == code
+    assert (r["pausal"]["rule"]["rates"]["bed"], r["pausal"]["rule"]["source_row"]) == (
+        rate_bed, source_row)
+    assert "official_table_row_assigned_by_inference" not in r["warnings"]

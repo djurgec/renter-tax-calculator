@@ -1,16 +1,35 @@
-# Run the production image locally on the database you built with porezni-kompas-etl:
-#   docker compose up --build      -> http://localhost:8000
-# The image is built without downloading the published database (DB_URL is empty);
-# data/build/ is mounted read-only in its place.
+# Run PorezniKompas locally with Docker. All three use the same image as the Render demo.
+#
+#   docker compose up --build                    app on the published database -> :8000
+#   docker compose run --rm etl                  rebuild the database from the sources
+#                                                into ./data/build (about 7 minutes)
+#   docker compose --profile local up --build local
+#                                                app on the database in ./data/build -> :8000
 services:
   app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      PK_RATE_LIMIT: "0"
+
+  etl:
+    build: .
+    profiles: ["etl"]
+    command: ["porezni-kompas-etl", "--data-dir", "/work"]
+    user: root # writes into the mounted ./data on Linux hosts too
+    volumes:
+      - ./data:/work
+
+  local:
     build:
       context: .
       args:
-        DB_URL: ""
+        DB_SOURCE: none # skip the download; ./data/build is mounted instead
+    profiles: ["local"]
     ports:
       - "8000:8000"
-    volumes:
-      - ./data/build:/app/data:ro
     environment:
       PK_RATE_LIMIT: "0"
+    volumes:
+      - ./data/build:/app/data:ro

@@ -11,11 +11,13 @@ LEGAL_RANGES = {
 
 THRESHOLDS = {
     "addresses_min": 1_600_000,
-    "address_resolved_share_min": 0.98,
+    "address_resolved_share_min": 0.999,
     "street_rules_matched_share_min": 0.95,
     "municipalities_expected": 556,
     "pausal_municipalities_covered_min": 550,
     "coordinates_outside_croatia_max": 0,
+    # official register vs the name-based chain (postcode + voter register), where both answer
+    "register_agreement_min": 0.999,
 }
 
 # lat/lon bounding box of Croatia with a small margin
@@ -39,6 +41,20 @@ def evaluate(stats: dict) -> dict:
           sr == 0 or sm / sr >= t["street_rules_matched_share_min"],
           {"total": sr, "exact": stats["street_rules_matched_exact"],
            "fuzzy": stats["street_rules_matched_fuzzy"]})
+    check("register of spatial units linked to the tax tables",
+          stats["register_municipalities"] == t["municipalities_expected"]
+          and not stats["register_unmatched_municipalities"]
+          and not stats["register_orphan_settlements"],
+          {"municipalities": stats["register_municipalities"],
+           "settlements": stats["register_settlements"],
+           "unmatched": stats["register_unmatched_municipalities"][:20],
+           "orphans": stats["register_orphan_settlements"][:20]})
+    rc = stats["register_check"]
+    compared = rc.get("same", 0) + rc.get("different", 0)
+    agreement = rc.get("same", 0) / compared if compared else 0.0
+    check("register agrees with the name-based method",
+          agreement >= t["register_agreement_min"],
+          {"agreement": round(agreement, 5), **rc})
     check("all municipalities in the master list",
           stats["municipalities"] == t["municipalities_expected"], stats["municipalities"])
     check("every municipality has a county", not stats["municipality_issues"],

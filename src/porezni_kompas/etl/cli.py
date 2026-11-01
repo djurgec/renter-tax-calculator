@@ -11,6 +11,7 @@ from .build import build
 from .download import download, raw_path
 from .municipalities import build_master, load_pausal_overrides
 from .parse_dgu import iter_addresses
+from .parse_dgu_units import build_register, iter_units
 from .parse_porezna import parse_consumption, parse_income, parse_pausal, parse_property
 from .parse_posta import parse_posta
 from .parse_voters import parse_voters
@@ -50,7 +51,11 @@ def main(argv: list[str] | None = None) -> int:
     master, municipality_issues = build_master(prop, consumption, voters)
     overrides = load_pausal_overrides(
         args.data_dir / "reference" / "pausal_municipality_overrides.csv")
-    resolver = Resolver(posta, voters, master)
+    log.info("parsing the register of spatial units (settlement -> municipality)")
+    register = build_register(iter_units(path("dgu_admin_units")), master)
+    log.info("register: %d settlements in %d municipalities", register.settlements,
+             register.municipalities)
+    resolver = Resolver(posta, voters, master, register)
 
     new_db = out_dir / "porezni_kompas.new.sqlite"
     if new_db.exists():
@@ -62,7 +67,10 @@ def main(argv: list[str] | None = None) -> int:
 
     s = stats.as_dict()
     s.update(municipalities=len(master.by_code), municipality_issues=municipality_issues,
-             property_rows=len(prop))
+             property_rows=len(prop), register_settlements=register.settlements,
+             register_municipalities=register.municipalities,
+             register_unmatched_municipalities=register.unmatched_municipalities,
+             register_orphan_settlements=register.orphan_settlements[:50])
     s["warnings"] = [f"flat-rate table ambiguous for {b['name']} (block {b['block']}): "
                      f"codes {b['codes']}" for b in stats.pausal_ambiguous_blocks]
     report = evaluate(s)

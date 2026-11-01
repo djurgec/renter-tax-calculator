@@ -42,12 +42,20 @@ class BuildStats:
     rates_outside_legal_range: list = field(default_factory=list)
     pausal_municipalities: int = 0
     coordinates_outside_croatia: int = 0
+    # official register vs the name-based chain, per address (see resolve.py)
+    register_check: dict = field(default_factory=lambda: defaultdict(int))
+    register_disagreements: dict = field(default_factory=lambda: defaultdict(int))
 
     def as_dict(self) -> dict:
         d = self.__dict__.copy()
         d["resolution"] = dict(self.resolution)
         d["pausal_levels"] = dict(self.pausal_levels)
         d["pausal_warnings"] = dict(self.pausal_warnings)
+        d["register_check"] = dict(self.register_check)
+        d["register_disagreements"] = [
+            {"settlement": s, "name_based": a, "register": b, "addresses": n}
+            for (s, a, b), n in sorted(self.register_disagreements.items(),
+                                       key=lambda kv: -kv[1])[:25]]
         return d
 
 
@@ -114,7 +122,7 @@ def build(db_path: Path, *, master: MunicipalityIndex, resolver: Resolver,
 
     # ---- pass 1: addresses -> streets, municipality per street
     to_wgs84 = Transformer.from_crs(3035, 4326, always_xy=True)
-    streets: dict[tuple[str, str, str], int] = {}
+    streets: dict[tuple[str, str, str, str], int] = {}
     street_rows: dict[int, list] = {}
     street_res = {}
     batch: list[DguAddress] = []
@@ -127,7 +135,7 @@ def build(db_path: Path, *, master: MunicipalityIndex, resolver: Resolver,
         lons, lats = to_wgs84.transform(xs, ys)
         rows = []
         for a, lon, lat in zip(batch, lons, lats, strict=True):
-            sid = streets[(a.settlement, a.postcode, a.street)]
+            sid = streets[(a.settlement, a.settlement_code, a.postcode, a.street)]
             num, _ = parse_house_number(a.number)
             ok = a.x3035 is not None
             lat_min, lon_min, lat_max, lon_max = CROATIA_BBOX
@@ -140,12 +148,13 @@ def build(db_path: Path, *, master: MunicipalityIndex, resolver: Resolver,
 
     for a in addresses:
         stats.addresses += 1
-        gk = (a.settlement, a.postcode, a.street)
+        # the settlement code keeps same-named settlements with one postcode apart
+        gk = (a.settlement, a.settlement_code, a.postcode, a.street)
         if gk not in streets:
             sid = len(streets) + 1
             streets[gk] = sid
             s_key = place_key(a.settlement)
-            res = resolver.resolve(s_key, a.postcode)
+            res = resolver.resolve(s_key, a.postcode, a.settlement_code)
             street_res[sid] = res
             street_rows[sid] = [sid, a.street, place_key(a.street), a.settlement, s_key,
                                 a.settlement_code, a.postcode, res.code,
@@ -159,6 +168,10 @@ def build(db_path: Path, *, master: MunicipalityIndex, resolver: Resolver,
         stats.resolution[res.method] += 1
         if res.code is not None:
             stats.addresses_resolved += 1
+        if res.cross_check:
+            stats.register_check[res.cross_check] += 1
+            if res.cross_check == "different":
+                stats.register_disagreements[(a.settlement, res.fallback_code, res.code)] += 1
         batch.append(a)
         if len(batch) >= 50_000:
             flush(batch)

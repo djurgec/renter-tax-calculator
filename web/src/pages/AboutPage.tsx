@@ -8,7 +8,6 @@ export function AboutPage() {
   const { t } = useTranslation()
   const sources = useQuery({ queryKey: ['sources'], queryFn: api.sources })
   const v = sources.data?.validation
-  const limits = t('about.limits', { returnObjects: true }) as string[]
 
   return (
     <div className="space-y-6">
@@ -98,22 +97,13 @@ export function AboutPage() {
               </tbody>
             </table>
           </div>
+          <p className="mt-4">
+            <a href="/api/docs" className="font-medium underline">
+              {t('about.api')}
+            </a>
+          </p>
         </Card>
       )}
-
-      <Card>
-        <h2 className="display text-[1.6rem]">{t('about.limitsTitle')}</h2>
-        <ul className="mt-2 list-disc space-y-1 pl-5">
-          {limits.map((l) => (
-            <li key={l}>{l}</li>
-          ))}
-        </ul>
-        <p className="mt-4">
-          <a href="/api/docs" className="font-medium underline">
-            {t('about.api')}
-          </a>
-        </p>
-      </Card>
     </div>
   )
 }

@@ -1,195 +1,100 @@
 # PorezniKompas
 
+**Live demo: https://porezni-kompas.onrender.com**
+(open API: https://porezni-kompas.onrender.com/api/docs)
+
+> The demo runs on Render's free tier: after 15 minutes without visitors it
+> sleeps, and the first page load then takes about a minute.
+
 Local tax calculator for private renters and holiday-home owners in Croatia.
 Type an address, the number of beds and the size of the property, and see the
 yearly flat-rate tax for renters (*paušalni porez*) and the property tax
 (*porez na nekretnine*), with the official table row each number comes from.
 
 Built for the *Datathon Portala otvorenih podataka 2026* (data.gov.hr).
-Architecture: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+Technical and project documentation (in Croatian): [docs/DOKUMENTACIJA.md](docs/DOKUMENTACIJA.md).
 
-## Quick start
+## Run it locally
 
-From a fresh clone to the app in your browser takes five steps. Commands run from
-the repository root (`renter-tax-calculator/`) unless a step says otherwise.
-The steps use conda; to use uv instead, see [Using uv instead](#using-uv-instead).
-
-### 1. Create the environment (once)
-
-Requires [Miniconda or Anaconda](https://docs.conda.io/).
+Requires [Docker](https://docs.docker.com/get-docker/). From the repository root:
 
 ```bash
-conda env create -f environment.yml
+docker compose up --build
 ```
 
-This creates the `rent` environment: Python 3.12, SQLite 3.45+, Node.js 22 and
-this package installed in editable mode, so code changes apply without
-reinstalling.
+Open http://localhost:8000. This builds the same image as the demo and uses the
+published database (the GitHub release [`data`](https://github.com/djurgec/renter-tax-calculator/releases/tag/data)), so no
+data processing is needed. The first build takes a few minutes.
 
-Activate it in **every new terminal** before running anything else:
+### Rebuild the database yourself
 
 ```bash
-conda activate rent
+docker compose run --rm etl
 ```
 
-Activation sets `PROJ_DATA`, without which pyproj cannot convert coordinates.
-
-### 2. Build the database (once, then whenever you want fresh data)
+This downloads the eight public sources (~390 MB), joins them and runs the
+twelve quality checks. It writes `data/build/porezni_kompas.sqlite` and
+`data/build/validation_report.json`. To download every
+source again instead of using the cache:
 
 ```bash
-porezni-kompas-etl
+docker compose run --rm etl porezni-kompas-etl --data-dir /work --refresh
 ```
 
-This downloads the seven public sources (~180 MB: Porezna uprava tax tables, the
-DGU address register, the voter register by address, Hrvatska pošta postcodes),
-joins them and runs the quality checks. It takes about 4 minutes. The log ends
-with ten `PASS` lines and `published data/build/porezni_kompas.sqlite`.
-
-Output:
-
-- `data/raw/<source>/` – downloaded files, cached; the next run reuses them
-- `data/build/porezni_kompas.sqlite` – the database the API reads (~180 MB)
-- `data/build/validation_report.json` – results of the quality checks
-
-The database is published only if every check passes; otherwise the command
-exits with code 1 and the previous database stays in place. Options:
-
-- `--refresh` – download every source again instead of using the cache
-- `--force` – publish even if a check fails (for debugging only)
-- `--data-dir DIR` – use another data folder (default `data`)
-
-### 3. Start the API (terminal 1)
+Serve the app on your own build:
 
 ```bash
-porezni-kompas-api
+docker compose --profile local up --build local
 ```
 
-It listens on http://127.0.0.1:8000, with interactive docs at
-http://127.0.0.1:8000/api/docs. Leave this terminal running.
+## How it works
 
-### 4. Start the frontend (terminal 2)
+1. **ETL** (`src/porezni_kompas/etl/`) downloads the sources, parses the Porezna
+   tables, streams the DGU address register (1.68 M addresses) and links every
+   address to its municipality through DGU's register of spatial units. It then
+   matches each address to the most specific flat-rate rule (house-number range →
+   street → settlement → municipality) and writes one SQLite file.
+2. **API** (FastAPI, `src/porezni_kompas/api/`) answers search, calculation and
+   municipality requests from that file, read-only. Amounts come from plain,
+   unit-tested Python code; every result lists its sources and table row.
+3. **Web app** (React, `web/`) is served by the same process in production.
 
-Open a new terminal, run `conda activate rent`, then:
+Architecture, data linking, quality checks and prerequisites:
+[docs/DOKUMENTACIJA.md](docs/DOKUMENTACIJA.md).
 
-```bash
-cd web
-npm install
-npm run dev
-```
+## Data sources
 
-`npm install` is needed only the first time and after dependency changes.
+| Dataset | Publisher | Link | Used for |
+|---|---|---|---|
+| Visina paušalnog poreza na dohodak po JLS za 2026. | Porezna uprava | [data.gov.hr](https://data.gov.hr/ckan/dataset/3c19c044-4cc4-42f1-ac97-29286a2bf305) | flat-rate rate per bed, street, settlement or municipality |
+| Usporedba poreza na nekretnine 2025/2026 | Porezna uprava | same dataset | property tax rate, who bills it |
+| Stope poreza na dohodak 2025 i 2026 | Porezna uprava | same dataset | income tax rates (municipality pages) |
+| Visina stopa poreza na potrošnju za 2026. | Porezna uprava | same dataset | official municipality codes, consumption tax |
+| Adrese (INSPIRE) | Državna geodetska uprava | [geoportal.dgu.hr](https://geoportal.dgu.hr/services/atom/INSPIRE_Addresses_(AD).zip) | every address, house number and position |
+| Administrativne jedinice (INSPIRE) | Državna geodetska uprava | [geoportal.dgu.hr](https://geoportal.dgu.hr/services/atom/INSPIRE_Administrative_Units_(AU).zip) | settlement → municipality for every address |
+| Registar birača – broj birača po adresi | Ministarstvo pravosuđa, uprave i digitalne transformacije | [data.gov.hr](https://data.gov.hr/ckan/dataset/a4f06d5d-52bd-46b5-a4e7-cf01d4f6e227) | municipality counties; cross-check of the address links |
+| Naselje i odredišni poštanski ured | Hrvatska pošta | [posta.hr](https://www.posta.hr/mjestaRh.aspx) | cross-check of the address links |
 
-### 5. Open the app
+Exact download URLs and checksums: `src/porezni_kompas/etl/sources.py` and the
+`/api/meta/sources` endpoint.
 
-Go to **http://localhost:5173**. The dev server forwards `/api` requests to the
-API from step 3, so both terminals must stay running.
+## Deployment
 
-### Everyday use
+Production is one Docker image (`Dockerfile`) that serves the web app and the API
+on one port, on a free [Render](https://render.com) web service (`render.yaml`).
 
-After the first setup, starting the app is only steps 3–5. Rebuild the database
-(step 2) when you want newer source data or after changing ETL code.
+1. **Database:** the **Data** workflow (`.github/workflows/data.yml`, run by hand
+   or weekly) runs the ETL on GitHub and publishes `porezni_kompas.sqlite`, its
+   SHA-256 and `validation_report.json` as the GitHub release `data`, only if
+   every check passes.
+2. **Image:** the Dockerfile builds the web app, installs the Python package from
+   `uv.lock`, downloads the database from that release and checks the SHA-256.
+3. **Render** rebuilds the image on every push to `master` once CI has passed, and
+   after each Data run when the repository secret `RENDER_DEPLOY_HOOK` holds the
+   service's deploy hook.
 
-### Tests
+To publish new data: Actions → Data → Run workflow.
 
-```bash
-pytest
-```
-
-`tests/test_api_real_db.py` runs only when the database from step 2 exists; the
-other tests use a small built-in database. For the frontend, run
-`npm run build` (type-check and production build) and `npm run lint` in `web/`.
-
-#### Browser tests (Playwright)
-
-End-to-end tests in `web/e2e/` drive the real app in Chromium, at desktop and
-phone size. Once, after `npm install` in `web/`, download the browser:
-
-```bash
-npx playwright install chromium
-```
-
-Then, in `web/`:
-
-```bash
-npm run test:e2e      # run all browser tests
-npm run test:e2e:ui   # interactive mode: watch, step through, pick tests
-npx playwright show-report   # last run's report, with screenshots of failures
-```
-
-The tests start their own API on port 8765 with the small test database
-(`tests/e2e_server.py`) and a dev server on port 5174, so they need neither the
-real database nor a running app, and the expected amounts never change. They
-use `python` when the conda environment is active and `uv run python` otherwise.
-
-#### Continuous integration
-
-GitHub Actions (`.github/workflows/ci.yml`) runs ruff and pytest, the frontend
-lint and build, and the Playwright tests on every push to `master` and `develop`
-and on every pull request. When the browser tests fail, the run's
-`playwright-report` artifact has screenshots and traces of the failures.
-
-### Claude skills
-
-`.claude/skills/` holds skills that Claude Code loads when working in this
-repository: `emil-design-eng`, `impeccable` and `taste-skill` for UI design, and
-`skill-inspector` for reviewing a skill before adding it. Each is copied from its
-upstream repository with that project's licence.
-
-Limits set in `.claude/settings.json` for everyone working here through Claude Code:
-
-- **No local web servers from the design skills.** A hook
-  (`.claude/hooks/block-skill-servers.sh`) stops impeccable's live preview and
-  decision-page servers (`live`, `live-*`, `serve-question`) and taste-skill's
-  screenshot inspector (`scripts/inspect.mjs`, `scripts/scenes.mjs`). The skills
-  then review from the source code and show design options as text.
-- **impeccable telemetry off** (also in `.impeccable/config.json`). When a new
-  design starts, impeccable still fetches design directions from impeccable.style,
-  but that service is told not to record which ones were shown or picked.
-
-Every skill is scanned with NVIDIA [SkillSpector](https://github.com/NVIDIA/SkillSpector)
-(`.github/workflows/skills.yml`) when skills change and weekly. Findings a person
-has reviewed and accepted are recorded per skill in `.skillspector/<skill>.yaml`;
-anything else fails the check. To scan locally:
-
-```bash
-uv tool install "git+https://github.com/NVIDIA/skillspector.git@v2.13.2"
-scripts/scan-skills.sh
-```
-
-To add a skill: copy it into `.claude/skills/<name>/` and run the scan. If it
-reports findings, review them (ask Claude to "inspect this skill" to use
-`skill-inspector`) and, if they are acceptable, record them with
-`REASON="what you checked" scripts/scan-skills.sh --accept <name>`. Updating a
-skill brings its findings back for another review.
-
-### Using uv instead
-
-Requires [uv](https://docs.astral.sh/uv/) and Node.js 22 (at least 20.19 or 22.12; Vite
-refuses older versions). Replace step 1 with:
-
-```bash
-uv sync
-```
-
-and prefix every Python command with `uv run`: `uv run porezni-kompas-etl`,
-`uv run porezni-kompas-api`, `uv run pytest`. Steps 4 and 5 are the same.
-
-### Troubleshooting
-
-- **`No module named uv`** – the `python` on your PATH (e.g. conda's base) has no
-  uv. Use the conda environment, or install uv for that Python with
-  `python -m pip install uv`.
-- **pyproj warning `unable to set PROJ database path`** – the environment is not
-  activated; run `conda activate rent`.
-- **Port 8000 or 5173 already in use** – another copy is running. Stop it, or
-  move the API to another port and point the frontend at it. In PowerShell, run
-  `$env:PK_PORT = "8001"` before starting the API and
-  `$env:PK_API_URL = "http://127.0.0.1:8001"` before `npm run dev`.
-- **The page says the server is not reachable** – the API from step 3 is not
-  running, or the database from step 2 has not been built.
-- **After changing dependencies** – `pyproject.toml`: run `pip install -e .` in
-  the environment (uv: `uv sync`). `environment.yml`: run
-  `conda env update -f environment.yml --prune`.
 
 ## Configuration
 
@@ -201,92 +106,63 @@ API settings (environment variables):
 | `PK_HOST` | `127.0.0.1` | API host |
 | `PK_PORT` | `8000` | API port (if unset, `PORT` is used, which hosts such as Render set) |
 | `PK_CORS_ORIGINS` | `http://localhost:5173` | allowed browser origins, comma-separated |
-| `PK_WEB_DIR` | unset | serve the built frontend (`web/dist`) from the API, on the same origin |
+| `PK_WEB_DIR` | unset | serve the built web app (`web/dist`) from the API, on the same origin |
 | `PK_RATE_LIMIT` | `0` (off) | API requests per client IP per minute; `/api/health` is never limited |
 
-Frontend: `PK_API_URL` (dev-server proxy target, default
-`http://127.0.0.1:8000`), `VITE_API_BASE` (API base path in a production build,
-default `/api`). `npm run build` writes the static site to `web/dist/`.
-
-## Deployment
-
-Production is one Docker image (`Dockerfile`) that serves the web app and the API
-on one port, hosted on a free [Render](https://render.com) web service
-(`render.yaml`).
-
-How the pieces fit:
-
-1. **Database:** the **Data** workflow (`.github/workflows/data.yml`, run by hand
-   or weekly) runs the ETL on GitHub and publishes `porezni_kompas.sqlite`, its
-   SHA-256 and `validation_report.json` as the GitHub release **`data`**. It
-   replaces the release only if every validation check passes.
-2. **Image:** the Dockerfile builds the frontend, installs the Python package
-   from `uv.lock`, downloads the database from that release and checks the
-   SHA-256. A missing or mismatched file fails the build, so Render keeps the
-   previous version running.
-3. **Render** builds the image on every push to `master` once CI has passed.
-
-### First deployment (once)
-
-1. Make the repository public (Settings → General → Danger Zone → Change
-   visibility). The image downloads the database from the release, which needs
-   a public repository.
-2. Run the **Data** workflow: Actions → Data → Run workflow. It takes about
-   5 minutes and creates the `data` release.
-3. In Render: New → Blueprint → connect the GitHub repository. Render reads
-   `render.yaml` and creates the free web service `porezni-kompas` in Frankfurt.
-4. Open the URL Render shows (`https://porezni-kompas….onrender.com`).
-5. Optional: copy the service's deploy hook (Render → service → Settings →
-   Deploy Hook) into a repository secret named `RENDER_DEPLOY_HOOK`, so each
-   Data run redeploys the site with the new database at once.
-
-If the Data workflow cannot reach a source from GitHub's servers, build the
-database locally (`porezni-kompas-etl`), create a release named `data` by hand
-and upload the three files. Make the checksum with
-`sha256sum porezni_kompas.sqlite > porezni_kompas.sqlite.sha256` in `data/build/`.
-
-### Free-tier behaviour
-
-- The service sleeps after 15 minutes without visitors; the first request then
-  takes about a minute while it starts again.
-- Under the free limits (512 MB, about 0.1 CPU) the app uses about 50 MB of
-  memory. Most requests take 0.1–0.2 s. Very common search words such as
-  `ulica` alone can take about 2 s.
-- The API allows 300 requests per minute per visitor (`PK_RATE_LIMIT`).
-
-### Run the production image locally
-
-With a database built by step 2 of the Quick start:
-
-```bash
-docker compose up --build
-```
-
-Then open http://localhost:8000. Compose mounts `data/build/` instead of
-downloading the published database.
+Web app: `PK_API_URL` (dev-server proxy target, default `http://127.0.0.1:8000`),
+`VITE_API_BASE` (API base path in a production build, default `/api`).
 
 ## API
 
 | Endpoint | Purpose |
 |---|---|
 | `GET /api/addresses/search?q=šercera 4 dubrovnik` | street / address autocomplete |
-| `GET /api/addresses/{id}` | address with its municipality, or the candidates |
+| `GET /api/addresses/{id}` | address with its municipality |
 | `GET /api/streets/{id}/addresses` | house numbers on a street |
 | `POST /api/calculate` | flat-rate + property tax with warnings and provenance |
-| `GET /api/municipalities[?q=]` | list, for the municipality picker |
+| `GET /api/municipalities[?q=]` | list of municipalities |
 | `GET /api/municipalities/{code}` | all rules and rates 2025/2026 |
 | `GET /api/municipalities/{code}/neighbours` | nearest municipalities compared |
+| `GET /api/map` | per-municipality rates for the map |
 | `GET /api/meta/sources` | datasets, build info, validation report |
 | `GET /api/health` | status and build info |
 
-Full schema: http://127.0.0.1:8000/api/docs (OpenAPI at `/api/openapi.json`).
+Full schema: [/api/docs](https://porezni-kompas.onrender.com/api/docs) (OpenAPI at
+`/api/openapi.json`).
 
-## Data sources
+## Development
 
-Porezna uprava (local tax tables 2025/2026), Državna geodetska uprava
-(INSPIRE addresses), Ministarstvo pravosuđa, uprave i digitalne transformacije
-(voter register by address), Hrvatska pošta (settlements and postcodes).
-Exact URLs: `src/porezni_kompas/etl/sources.py`.
+For changing the code rather than running the app. Requires
+[uv](https://docs.astral.sh/uv/) and Node.js 22 (at least 20.19 or 22.12).
+
+```bash
+uv sync
+uv run porezni-kompas-etl      # build data/build/porezni_kompas.sqlite
+uv run porezni-kompas-api      # API on http://127.0.0.1:8000
+```
+
+In a second terminal, the web app with live reload on http://localhost:5173:
+
+```bash
+cd web
+npm install
+npm run dev
+```
+
+Tests:
+
+```bash
+uv run ruff check .
+uv run pytest                  # tests/test_api_real_db.py needs the built database
+```
+
+In `web/`: `npm run lint`, `npm run build`, and the Playwright browser tests
+(`npx playwright install chromium` once, then `npm run test:e2e`). The browser
+tests start their own API on a small test database, so they need no real data.
+
+GitHub Actions (`.github/workflows/ci.yml`) runs all of these on every push to
+`master` and `develop` and on every pull request.
+
 
 ## Licence
 

@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('shows an empty result until an address is chosen', async ({ page }) => {
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Koliko poreza')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('za vašu adresu')
   await expect(page.getByText('Odaberite adresu da biste vidjeli izračun.')).toBeVisible()
 })
 

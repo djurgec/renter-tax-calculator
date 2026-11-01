@@ -14,8 +14,6 @@ import { eurRange } from '../lib/format'
 import { useDebounced } from '../lib/useDebounced'
 import { useInView } from '../lib/useInView'
 
-const TAX_YEAR = 2026
-
 type Patch = Record<string, string | number | null | boolean>
 
 function fromParams(params: URLSearchParams): Patch {
@@ -134,7 +132,7 @@ export function CalculatorPage() {
       <div className="space-y-5 [grid-area:head]">
         <div>
           <h1 className="text-[2rem] leading-[1.08] sm:text-[2.5rem]">{t('calc.title')}</h1>
-          <p className="mt-2.5 max-w-xl text-[0.98rem] text-muted">{t('calc.intro', { year: TAX_YEAR })}</p>
+          <p className="mt-2.5 max-w-xl text-[0.98rem] text-muted">{t('calc.intro')}</p>
         </div>
         {!s.addressId ? (
           <AddressSearch onSelect={(id) => update({ a: id, m: null })} />
@@ -189,10 +187,7 @@ export function CalculatorPage() {
             onChange={(e) => update({ s: e.target.checked })}
             className="mt-0.5 h-5 w-5 shrink-0"
           />
-          <span>
-            <span className="font-semibold">{t('form.primary')}</span>
-            <span className="block text-[0.85rem] text-muted">{t('form.primaryHelp')}</span>
-          </span>
+          <span className="font-semibold">{t('form.primary')}</span>
         </label>
       </section>
 

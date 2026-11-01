@@ -14,9 +14,8 @@ const hr = {
   error: 'Nešto nije u redu. Pokušajte ponovno.',
   apiDown: 'Poslužitelj nije dostupan. Je li API pokrenut?',
   calc: {
-    title: 'Koliko poreza plaćate za apartman ili kuću za odmor?',
-    intro:
-      'Upišite adresu nekretnine, broj kreveta i površinu. Izračun koristi službene tablice za {{year}}. i pokazuje iz kojeg retka dolazi svaki iznos.',
+    title: 'Paušal i porez na nekretnine za vašu adresu',
+    intro: 'Upišite adresu nekretnine, broj kreveta i površinu.',
   },
   search: {
     label: 'Adresa nekretnine',
@@ -52,7 +51,6 @@ const hr = {
     area: 'Korisna površina (m²)',
     areaHelp: 'Za porez na nekretnine. Ostavite prazno ako vas ne zanima.',
     primary: 'U ovoj nekretnini imam prebivalište i stalno stanujem',
-    primaryHelp: 'Nekretnina za stalno stanovanje ne plaća porez na nekretnine.',
     decrease: 'Smanji',
     increase: 'Povećaj',
   },
@@ -175,7 +173,7 @@ const hr = {
   about: {
     title: 'O podacima',
     intro:
-      'PorezniKompas spaja četiri otvorena skupa podataka u jednu bazu. Svaki izračun navodi redak službene tablice iz kojeg dolazi.',
+      'PorezniKompas spaja pet otvorenih skupova podataka u jednu bazu. Svaki izračun navodi redak službene tablice iz kojeg dolazi.',
     coverage: 'Pokrivenost',
     addresses: 'adresa u registru DGU-a',
     resolved: 'adresa povezano s općinom',
@@ -189,13 +187,6 @@ const hr = {
     licence: 'Licencija',
     size: 'Veličina',
     downloaded: 'Preuzeto',
-    limitsTitle: 'Poznata ograničenja',
-    limits: [
-      'Oko 1,5 % adresa nalazi se u naselju čije ime i poštanski broj postoje u više općina; tada aplikacija pita korisnika.',
-      'Porez na nekretnine prikazan je kao raspon ako općina ima više zona; zone nisu objavljene kao otvoreni podaci.',
-      'Za dvije općine imena Otok službena tablica ne navodi koja je koja; retke smo povezali zaključivanjem i to označavamo.',
-      'Izračun je informativan i ne zamjenjuje rješenje poreznog tijela.',
-    ],
     api: 'Otvoreni API i dokumentacija',
   },
   datasets: {
@@ -204,6 +195,7 @@ const hr = {
     porezna_income: 'Stope poreza na dohodak po JLS, 2025. i 2026.',
     porezna_consumption: 'Stope poreza na potrošnju po JLS za 2026.',
     dgu_addresses: 'Adrese (INSPIRE), registar adresa',
+    dgu_admin_units: 'Administrativne jedinice (INSPIRE): naselja i općine',
     voters: 'Broj birača po adresi',
     posta: 'Naselja i poštanski brojevi',
   },
@@ -212,6 +204,10 @@ const hr = {
     'addresses resolved to a municipality': 'Udio adresa povezanih s općinom',
     'street-level rules found in the address data': 'Ulice iz tablice pronađene u registru adresa',
     'all municipalities in the master list': 'Sve 556 općina i gradova na popisu',
+    'register of spatial units linked to the tax tables':
+      'Registar prostornih jedinica povezan s poreznim tablicama',
+    'register agrees with the name-based method':
+      'Registar i provjera po imenima naselja daju istu općinu',
     'every municipality has a county': 'Svaka općina ima županiju',
     'municipalities with a property-tax entry': 'Svaka općina ima stopu poreza na nekretnine',
     'municipalities covered by flat-rate rules': 'Svaka općina ima paušalni porez',
@@ -238,9 +234,8 @@ const en: Dict = {
   error: 'Something went wrong. Please try again.',
   apiDown: 'The server is not reachable. Is the API running?',
   calc: {
-    title: 'How much tax do you pay for a holiday rental?',
-    intro:
-      'Enter the property address, the number of beds and the floor area. The calculation uses the official {{year}} tables and shows which row each amount comes from.',
+    title: 'Flat-rate and property tax for your address',
+    intro: 'Enter the property address, the number of beds and the floor area.',
   },
   search: {
     label: 'Property address',
@@ -275,7 +270,6 @@ const en: Dict = {
     area: 'Floor area (m²)',
     areaHelp: 'For property tax. Leave empty to skip it.',
     primary: 'This is my registered permanent residence',
-    primaryHelp: 'Property used as a permanent residence is exempt from property tax.',
     decrease: 'Decrease',
     increase: 'Increase',
   },
@@ -394,7 +388,7 @@ const en: Dict = {
   about: {
     title: 'About the data',
     intro:
-      'PorezniKompas joins four open datasets into one database. Every calculation cites the row of the official table it comes from.',
+      'PorezniKompas joins five open datasets into one database. Every calculation cites the row of the official table it comes from.',
     coverage: 'Coverage',
     addresses: 'addresses in the DGU register',
     resolved: 'addresses linked to a municipality',
@@ -408,13 +402,6 @@ const en: Dict = {
     licence: 'Licence',
     size: 'Size',
     downloaded: 'Downloaded',
-    limitsTitle: 'Known limitations',
-    limits: [
-      'About 1.5% of addresses are in a settlement whose name and postcode exist in more than one municipality; the app then asks the user.',
-      'Property tax is shown as a range where the municipality has several zones; the zones are not published as open data.',
-      'For the two municipalities named Otok the official table does not say which is which; we matched the rows by inference and flag it.',
-      'The calculation is indicative and does not replace the decision of the tax authority.',
-    ],
     api: 'Open API and documentation',
   },
   datasets: {
@@ -423,6 +410,7 @@ const en: Dict = {
     porezna_income: 'Income tax rates by municipality, 2025 and 2026',
     porezna_consumption: 'Consumption tax rates by municipality, 2026',
     dgu_addresses: 'Addresses (INSPIRE), address register',
+    dgu_admin_units: 'Administrative units (INSPIRE): settlements and municipalities',
     voters: 'Number of voters per address',
     posta: 'Settlements and postcodes',
   },
@@ -431,6 +419,10 @@ const en: Dict = {
     'addresses resolved to a municipality': 'Share of addresses linked to a municipality',
     'street-level rules found in the address data': 'Streets from the table found in the address register',
     'all municipalities in the master list': 'All 556 municipalities in the list',
+    'register of spatial units linked to the tax tables':
+      'Register of spatial units linked to the tax tables',
+    'register agrees with the name-based method':
+      'Register and the settlement-name check agree on the municipality',
     'every municipality has a county': 'Every municipality has a county',
     'municipalities with a property-tax entry': 'Every municipality has a property tax rate',
     'municipalities covered by flat-rate rules': 'Every municipality has a flat-rate tax',

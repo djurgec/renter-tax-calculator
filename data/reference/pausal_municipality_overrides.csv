@@ -3,5 +3,5 @@ PRIVLAKA,1,5746,yes,"Row 1077, 70 EUR/bed: Privlaka (Zadarska), checked by the t
 Privlaka,1,5835,yes,"Row 1078, 60 EUR/bed: Privlaka (Vukovarsko-srijemska), by elimination"
 SVETA NEDELJA,2,4324,yes,"Row 1272, 50 EUR/bed: Odluka o visini paušalnog poreza, Općina Sveta Nedelja (Istarska), KLASA 024-02/25-01/002, 24.02.2025"
 SVETA NEDELJA,1,4367,yes,"Row 1271, 30 EUR/bed: Grad Sveta Nedelja (Zagrebačka), by elimination"
-Otok,1,5355,inferred,"Row 1015, 20 EUR/bed (category IV minimum): Grad Otok (Vukovarsko-srijemska). Grad Otok also sets the minimum property tax (NN 40/2025, item 558); the mixed-case spelling matches most Vukovarsko-srijemska rows. No decision on the flat-rate tax found"
-OTOK,1,3140,inferred,"Row 1016, 60 EUR/bed (category IV legal default when no decision is adopted): Općina Otok (Splitsko-dalmatinska), by elimination"
+Otok,1,3140,yes,"Row 1015, 20 EUR per bed, camp unit and robinson unit: Odluka o visini paušalnog poreza, Općina Otok (Splitsko-dalmatinska), KLASA 410-03/25-01/01, 27.11.2025, applies from 01.01.2026 (opcina-otok.hr)"
+OTOK,1,5355,yes,"Row 1016, 60 EUR/bed (category IV legal default): Grad Otok (Vukovarsko-srijemska), by elimination"

@@ -107,8 +107,10 @@ test('on a phone the total follows the form and leads back to the result', async
   await page.goto('/?a=KB.5&b=4&p=80')
   await expect(total(page)).toHaveText(/^1\.196,32\s€$/)
 
-  await page.getByRole('spinbutton', { name: 'Kreveti' }).scrollIntoViewIfNeeded()
   await page.getByRole('button', { name: /: Kreveti$/ }).last().click()
+  // The bar shows only while the result card is off screen. Whether the card already shows
+  // below the form depends on the page height, so go back to the top, where it never does.
+  await page.evaluate(() => window.scrollTo(0, 0))
   const bar = page.getByRole('button', { name: /Ukupno godišnje.*1\.395,40/ })
   await expect(bar).toBeVisible()
   await bar.click()

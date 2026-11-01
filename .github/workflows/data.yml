@@ -1,13 +1,12 @@
 name: Data
 
 # Builds porezni_kompas.sqlite from the public sources and publishes it as the GitHub
-# release "data", which the Dockerfile downloads. Runs by hand and weekly; the release is
-# replaced only when every validation check passes (the ETL exits 1 otherwise).
+# release "data", which the Dockerfile downloads, then asks Render to redeploy with it.
+# Runs only by hand (Actions -> Data -> Run workflow); the release is replaced only when
+# every validation check passes (the ETL exits 1 otherwise).
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 3 * * 1" # Mondays 03:00 UTC
 
 permissions:
   contents: write
@@ -22,7 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      # optional: Render's deploy hook URL, so the site picks up the new data at once
+      # Render's deploy hook URL (Render -> service -> Settings -> Deploy Hook), stored as
+      # a repository secret, so the site picks up the new data at once
       RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
     steps:
       - uses: actions/checkout@v7
@@ -62,3 +62,7 @@ jobs:
       - name: Redeploy on Render
         if: ${{ env.RENDER_DEPLOY_HOOK != '' }}
         run: curl -fsS -X POST "$RENDER_DEPLOY_HOOK" > /dev/null
+
+      - name: Redeploy on Render (hook not set)
+        if: ${{ env.RENDER_DEPLOY_HOOK == '' }}
+        run: echo "::warning::Secret RENDER_DEPLOY_HOOK is not set, so Render was not redeployed. Use Render -> Manual Deploy, or add the secret."

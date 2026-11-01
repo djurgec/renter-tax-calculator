@@ -206,7 +206,7 @@ flowchart LR
         GEO[geoportal.dgu.hr<br/>INSPIRE adrese i<br/>upravne jedinice]
     end
     subgraph GitHub
-        WF["Tijek „Data“ (tjedno)<br/>ETL + 12 kontrola"]
+        WF["Tijek „Data“ (na zahtjev)<br/>ETL + 12 kontrola"]
         REL[(Izdanje „data“<br/>SQLite + SHA-256)]
         CI["Tijek „CI“<br/>testovi"]
     end
@@ -255,8 +255,9 @@ stranica o podacima. U produkciji je poslužuje isti proces kao i API, na istoj 
 
 - Tijek **CI** pri svakoj promjeni pokreće provjeru koda, testove i izgradnju
   web-aplikacije.
-- Tijek **Data** jednom tjedno (ili na zahtjev) gradi bazu iz izvora i objavljuje je
-  kao izdanje `data`, ali samo ako sve kontrole prođu.
+- Tijek **Data** pokreće se ručno, kad izvori objave nove podatke. Gradi bazu iz izvora
+  i objavljuje je kao izdanje `data`, ali samo ako sve kontrole prođu, a zatim
+  automatski pokreće novu isporuku na Renderu.
 - Docker slika preuzima tu bazu i provjerava joj SHA-256 sažetak; neispravna datoteka
   zaustavlja izgradnju, pa ostaje raditi prethodna inačica.
 - Render pokreće sliku u regiji Frankfurt (EU).
@@ -321,8 +322,9 @@ API endpointi: `/api/addresses/search`, `/api/addresses/{id}`,
 
 ### Organizacijski
 
-- osoba ili tim koji održava rješenje: prati tjedni izvještaj kontrola kvalitete i
-  reagira kad izgradnja ne prođe;
+- osoba ili tim koji održava rješenje: pokreće osvježavanje podataka (tijek Data) kad
+  izvori objave nove podatke, prati izvještaj kontrola kvalitete i reagira kad izgradnja
+  ne prođe;
 - godišnje ažuriranje poveznica na nove tablice kad Porezna uprava objavi stope za novu
   godinu;
 - vođenje evidencije dodjela nejednoznačnih redaka (s izvorom u odluci općine) te

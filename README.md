@@ -84,7 +84,7 @@ Production is one Docker image (`Dockerfile`) that serves the web app and the AP
 on one port, on a free [Render](https://render.com) web service (`render.yaml`).
 
 1. **Database:** the **Data** workflow (`.github/workflows/data.yml`, run by hand
-   or weekly) runs the ETL on GitHub and publishes `porezni_kompas.sqlite`, its
+   only) runs the ETL on GitHub and publishes `porezni_kompas.sqlite`, its
    SHA-256 and `validation_report.json` as the GitHub release `data`, only if
    every check passes.
 2. **Image:** the Dockerfile builds the web app, installs the Python package from

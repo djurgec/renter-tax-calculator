@@ -19,6 +19,7 @@ from .models import (
     CalculateRequest,
     CalculationResult,
     HouseNumber,
+    MapPoint,
     MunicipalityDetail,
     MunicipalitySummary,
     Neighbour,
@@ -78,6 +79,11 @@ def calculate(db: Db, req: CalculateRequest):
 @router.get("/municipalities", response_model=list[MunicipalitySummary])
 def list_municipalities(db: Db, q: Annotated[str | None, Query(max_length=100)] = None):
     return muni.list_municipalities(db, q)
+
+
+@router.get("/map", response_model=list[MapPoint])
+def map_points(db: Db):
+    return muni.map_points(db)
 
 
 @router.get("/municipalities/{code}", response_model=MunicipalityDetail)

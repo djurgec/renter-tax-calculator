@@ -99,9 +99,73 @@ pytest
 other tests use a small built-in database. For the frontend, run
 `npm run build` (type-check and production build) and `npm run lint` in `web/`.
 
+#### Browser tests (Playwright)
+
+End-to-end tests in `web/e2e/` drive the real app in Chromium, at desktop and
+phone size. Once, after `npm install` in `web/`, download the browser:
+
+```bash
+npx playwright install chromium
+```
+
+Then, in `web/`:
+
+```bash
+npm run test:e2e      # run all browser tests
+npm run test:e2e:ui   # interactive mode: watch, step through, pick tests
+npx playwright show-report   # last run's report, with screenshots of failures
+```
+
+The tests start their own API on port 8765 with the small test database
+(`tests/e2e_server.py`) and a dev server on port 5174, so they need neither the
+real database nor a running app, and the expected amounts never change. They
+use `python` when the conda environment is active and `uv run python` otherwise.
+
+#### Continuous integration
+
+GitHub Actions (`.github/workflows/ci.yml`) runs ruff and pytest, the frontend
+lint and build, and the Playwright tests on every push to `master` and `develop`
+and on every pull request. When the browser tests fail, the run's
+`playwright-report` artifact has screenshots and traces of the failures.
+
+### Claude skills
+
+`.claude/skills/` holds skills that Claude Code loads when working in this
+repository: `emil-design-eng`, `impeccable` and `taste-skill` for UI design, and
+`skill-inspector` for reviewing a skill before adding it. Each is copied from its
+upstream repository with that project's licence.
+
+Limits set in `.claude/settings.json` for everyone working here through Claude Code:
+
+- **No local web servers from the design skills.** A hook
+  (`.claude/hooks/block-skill-servers.sh`) stops impeccable's live preview and
+  decision-page servers (`live`, `live-*`, `serve-question`) and taste-skill's
+  screenshot inspector (`scripts/inspect.mjs`, `scripts/scenes.mjs`). The skills
+  then review from the source code and show design options as text.
+- **impeccable telemetry off** (also in `.impeccable/config.json`). When a new
+  design starts, impeccable still fetches design directions from impeccable.style,
+  but that service is told not to record which ones were shown or picked.
+
+Every skill is scanned with NVIDIA [SkillSpector](https://github.com/NVIDIA/SkillSpector)
+(`.github/workflows/skills.yml`) when skills change and weekly. Findings a person
+has reviewed and accepted are recorded per skill in `.skillspector/<skill>.yaml`;
+anything else fails the check. To scan locally:
+
+```bash
+uv tool install "git+https://github.com/NVIDIA/skillspector.git@v2.13.2"
+scripts/scan-skills.sh
+```
+
+To add a skill: copy it into `.claude/skills/<name>/` and run the scan. If it
+reports findings, review them (ask Claude to "inspect this skill" to use
+`skill-inspector`) and, if they are acceptable, record them with
+`REASON="what you checked" scripts/scan-skills.sh --accept <name>`. Updating a
+skill brings its findings back for another review.
+
 ### Using uv instead
 
-Requires [uv](https://docs.astral.sh/uv/) and Node.js 20+. Replace step 1 with:
+Requires [uv](https://docs.astral.sh/uv/) and Node.js 22 (at least 20.19 or 22.12; Vite
+refuses older versions). Replace step 1 with:
 
 ```bash
 uv sync

@@ -185,6 +185,17 @@ class Neighbour(MunicipalitySummary):
     property_tax: PropertyTaxRate | None
 
 
+class MapPoint(BaseModel):
+    code: int
+    name: str
+    tourism_category: str | None
+    lat: float
+    lon: float
+    rate_bed: float | None = Field(description="Municipality-wide per-bed rate, if exactly one")
+    rate_min: float | None = Field(description="Lowest per-bed rate of any rule")
+    rate_max: float | None = Field(description="Highest per-bed rate of any rule")
+
+
 # ---- meta
 
 

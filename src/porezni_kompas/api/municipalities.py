@@ -74,3 +74,32 @@ def neighbours(con: sqlite3.Connection, code: int, limit: int = 8) -> list[dict]
                     "pausal_rate_bed": rates.pop() if len(rates) == 1 else None,
                     "property_tax": property_tax_rate(con, o["code"], YEAR)})
     return out
+
+
+def map_points(con: sqlite3.Connection) -> list[dict]:
+    """Every municipality with a centroid, for the map: one point per municipality.
+
+    `rate_bed` is the municipality-wide per-bed rate when the table has exactly one; otherwise
+    it is None and `rate_min` / `rate_max` show the spread of all its rules (streets,
+    settlements, house-number ranges).
+    """
+    rows = con.execute(
+        "SELECT m.code, m.name, m.tourism_category, m.lat, m.lon, "
+        "  (SELECT group_concat(DISTINCT r.rate_bed) FROM pausal_rule r "
+        "     WHERE r.municipality_code = m.code AND r.year = ? AND r.level = 'municipality' "
+        "     AND r.rate_bed IS NOT NULL) AS wide, "
+        "  (SELECT min(r.rate_bed) FROM pausal_rule r "
+        "     WHERE r.municipality_code = m.code AND r.year = ?) AS lo, "
+        "  (SELECT max(r.rate_bed) FROM pausal_rule r "
+        "     WHERE r.municipality_code = m.code AND r.year = ?) AS hi "
+        "FROM municipality m WHERE m.lat IS NOT NULL ORDER BY m.code",
+        (YEAR, YEAR, YEAR)).fetchall()
+    out = []
+    for r in rows:
+        wide = [float(v) for v in r["wide"].split(",")] if r["wide"] else []
+        out.append({"code": r["code"], "name": r["name"],
+                    "tourism_category": r["tourism_category"],
+                    "lat": round(r["lat"], 4), "lon": round(r["lon"], 4),
+                    "rate_bed": wide[0] if len(wide) == 1 else None,
+                    "rate_min": r["lo"], "rate_max": r["hi"]})
+    return out

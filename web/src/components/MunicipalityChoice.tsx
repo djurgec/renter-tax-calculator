@@ -17,21 +17,21 @@ export function MunicipalityChoice({ address, value, onChange }: Props) {
   const hasCandidates = address.candidates.length > 0
 
   return (
-    <fieldset className="rounded-lg border border-warn-line bg-warn-bg p-3 text-warn-text">
-      <legend className="px-1 font-medium">{t('address.pickTitle')}</legend>
+    <fieldset className="rounded-2xl bg-warn-bg p-4 text-warn-text">
+      <legend className="float-left mb-1 w-full font-semibold">{t('address.pickTitle')}</legend>
       <p className="mb-2 text-sm">
         {hasCandidates ? t('address.ambiguousHelp') : t('address.unknownHelp')}
       </p>
       {hasCandidates ? (
         <div className="flex flex-col gap-1.5">
           {address.candidates.map((m) => (
-            <label key={m.code} className="flex cursor-pointer items-center gap-2">
+            <label key={m.code} className="flex cursor-pointer items-center gap-2.5 rounded-lg px-2 py-1.5 hover:bg-white/50">
               <input
                 type="radio"
                 name={name}
                 checked={value === m.code}
                 onChange={() => onChange(m.code)}
-                className="h-4 w-4 accent-[var(--brand)]"
+                className="h-[18px] w-[18px]"
               />
               <span>
                 {m.name} <span className="text-sm opacity-80">({m.county})</span>
@@ -65,14 +65,14 @@ function AllMunicipalities({ value, onChange }: Omit<Props, 'address'>) {
         value={filter}
         placeholder={t('address.searchMunicipality')}
         onChange={(e) => setFilter(e.target.value)}
-        className="mb-2 w-full rounded-md border border-line bg-surface px-2 py-1.5 text-ink"
+        className="mb-2 w-full rounded-lg border border-line-strong bg-surface px-3 py-2 text-ink"
       />
       <select
         size={6}
         aria-label={t('address.searchMunicipality')}
         value={value ?? ''}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full rounded-md border border-line bg-surface text-ink"
+        className="w-full rounded-lg border border-line-strong bg-surface text-ink"
       >
         {shown.map((m) => (
           <option key={m.code} value={m.code}>

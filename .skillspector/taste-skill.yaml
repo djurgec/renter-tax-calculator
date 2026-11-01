@@ -1,0 +1,573 @@
+# SkillSpector baseline — findings listed here are suppressed on future scans.
+# Edit 'reason' fields and add glob 'rules' as needed. See docs/SUPPRESSION.md.
+version: 2
+scanner_version: 2.13.2
+rules: []
+fingerprints:
+- hash: sha256:d0c4c7ae77dd5dd8d37c4e123f11b109bc22d07a0ebf665e43d66ad16a6fe354
+  rule_id: LP3
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:6e9fde8ebc97d90f6d85da13334ad0cd680e171b1e2b84b048abfed9103cbc5c
+  rule_id: AS3
+  file: README.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:31728dda5b5af573e7c00d6374b31878b55e1c4ed2f54d7da786297e11c9209f
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:0a58a5905666994c2fc2b2c957416361baf7f104e28fca9a5bca5077c1a30904
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:27f3983a157380f41e8a376b6f1a2bb029117c646987274c4fdf51ca622d1e86
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:836a93425241b9b9c5b1935c4d705d3545e735719ec81166bfedfbae0ed7fb41
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:1e174c38323c68b2f2665422f5ef47a5d07f84655afd9b5ee26e17f5a60a49a6
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:66c7d6eec77f301372afa8152845e587eddfd1945adf65324e84e6f88977e23f
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:81b64d1b263135d0692de3b90a8be4919ae2ca1615c891ba232285a7626c7525
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:66824f5e508d784d5fcd72736c2cbd7b973e794e48f50b2a9cea9c87e2274e9d
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:896a0640cf6f1f5c0d34be1431cda5ca1c44223cb937f4a82182e05a8cf2e283
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:b2788ddbfd0f7797ef2b4bd2766e6c1a633590fb13f216456378bab37e0b267d
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:4eefbe75586256faf11924076dab92e4f391d8f018ead9558cd8fa17db85b6cf
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:2b808b2629b04b79aeb19ba15bf3b7602f6d4a27c197bd26a22cc9f75783545b
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:7ada92f7f47de84085c6da282757502f718b268283a76b28995f1a1398b6162e
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:6951f97ec84a3cc2bef08af5402024dcd501fee81de74a70fcfcbdf84ef71db7
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:1dac79f3b76a73a57ae082f4b125d9f24df10023356026135dc3602b63cedafe
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:52417120e8cc5cb848be6e3dc7865af0cdc2bdefbd3780e131c7bbfed2fa6cd1
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:67435453d3d6aea39795184a9c1b32d37e16d10e3da4c56593be68864cb4257b
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:44d8ff93e11036a6d51444d31fe556785333751948557c8f9b77a4a6bd3970af
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:934213dca036b3a05ea862d07faba978acda155352de07022b7424b9126e59fe
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:871bec3bc9ee3476bf70c142427c9345943aa4834898507f23018034bb52b824
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:d938a44c63f13c9ec013dd66b6cfc31e2233e2fdb86edcf609181666cfbf679d
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:599af7971bd5bd52f3c06fa74a05c5ba166bb6e4a0ac3646f40d297c2d73a975
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:028e62a6d4770134ec60bf295a442f6bc6becc49ba7ad09a805dc83868393968
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:0ce900bd5e2df1f77e3da152d133ddbaab7943afae5eb8be697859947aad47a5
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:bd75514dba45f2bf64b0aeed8edf10400311311f428cb3b04d643dfa70cff125
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:c95aee1431d0ef8f005add24a7bfd0bc0193707f72b29039d4257eba197459d9
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:c7209f13b41ae16a4e4183a5c1bb84ab22671748078f91a41e851bdeb41fef8d
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:a38621d5c56710a2b754035aef77f237332c9323521befbaa65f43252e2eff01
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:56632303de2942665361aae0018f1b13ba310d046a8d7adb7845e872726b409b
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:c5bc05cb522aea9f66398a05067c5bbc402b5973c6bd5fc25022ce6352aa94bf
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:c0bff03115f20df7c15ff30ff502782d8fe1de31374146fb2dbdf9202ea21906
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:c90c9be9a1c6d876aca41899315d513f780e99f179cf6fff143acad7bbe8677a
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:b6b2130d0e6500ea5595d84786dbd7be3bef2634b3f50ef015e43611c3e8069b
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:5c71e8e0adc8eb046c3780244de940b6802daf559d3194a48c0883a213babd21
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:37b83793c52cefe1d222f5521b4a3b88e89ac4ededb8f4da7bae4784a32636cb
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:c955c71121fa6220813abeda2c39ee5d94a2136e9db7ecb2856fd4b326c83f59
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:2549f5b06b61b18dece6fa28f45e871d04901a3648c23a1bfa43a38c484fb94f
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:2c52ae3ff042222c53dc9751840bd3382752d3bb1efaf07deadb1cb69d40d2e7
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:d9396b7d5066361d18fb3d396a856aad40ce4ee01da80c79b68ce683bbed6fc7
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:c99d97be880216ef3d85c3dd0e4009156222be9e8840db75a92a2e7ab74d42d3
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:b45d16ac88bb51eaa558e1aca6326318496ed6b9cb51fcec935e49fc39066fb4
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:a964ee976af5859813b4506d8188e890ecaa7759965c6afc3b963df454b6bc3e
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:85d8b11f4c493340aed531c183622ce8aac2cc7b03dd1c2ef7152b25929853d8
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:49ecfcab9081032f3d5309797ef07178fd05ae969da946e0460a8ed1555b46e5
+  rule_id: E1
+  file: library/type.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:dde7aab46fea86e636370818d5bb89513b2c596e866f263ebcf55cab24418153
+  rule_id: E1
+  file: scripts/assets.mjs
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:60a48dcd22d0dbb64a79b39198cbf8571f9491bce6f73224026c1ff8a7a24bde
+  rule_id: E1
+  file: scripts/assets.mjs
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:ac0436218975edcdf5dd9dbb41265c7929b547c21c1dd1a65c1a75872fc536ba
+  rule_id: E1
+  file: scripts/assets.mjs
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:a43aae2c8dc1d4267db167341249195c1b6de5bb5096dd5219db081922f33f9b
+  rule_id: E1
+  file: scripts/assets.mjs
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:f9f2d4c00555c4e5ede59178fee44e182600ae99f123094c1e4d4224668a18e3
+  rule_id: EA4
+  file: library/sites.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:e9ea093aae6aa8a6c1ef44600a4f38ad6a0741ac86d6025e3a1d72b1d9bf5e3d
+  rule_id: PE3
+  file: library/sites.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:6e685d3cf769e00d2533ec1c3a14df16caf79f7ec9b0af860663e06f42d2bcdb
+  rule_id: PE3
+  file: library/sites.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:ceb93a76204fd177b2995c3d1a0e57e3ec1171fdab491cb9ae7062acb5971a40
+  rule_id: PE3
+  file: library/sites.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:14c4e5c65af75302285f6b7649efdd41b358273a76522663885ff3041ea0e08d
+  rule_id: PE3
+  file: library/sites.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:0bbec7a3bac4537376caf7b6a87dd57252755411d66bce04d9acae38c151677d
+  rule_id: PE3
+  file: library/sites.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:656a4e38ab9d8cbd829ab614cb2bdf3990f87e4551bc4879ca7621eca3e37d18
+  rule_id: TM1
+  file: library/photos.json
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:90f3e9eec9b42f1baad43f88a0d9616820c4cae58ada9d1530755a29d648a2d7
+  rule_id: TM1
+  file: scripts/assets.mjs
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:a97c09f88bc8ae71f86331f14101eb5417161c80f57fdc2170923c911b480a29
+  rule_id: TM1
+  file: scripts/assets.mjs
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:dad6a43f24dccba11ea1a8b238c692af521d84eef30da245ad639903e82a1409
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:f2d360d4f61a6ab6bddae6a90d750838bf764950edae73e7985f07bb1fe436ef
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:0b591f449f7fd951db998e6dec17ec18fda3663ff7842c0e5e79ba91941ca774
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:cd1e9600c98a460d1c7877eb38152c6bf36715e6f2ff744aface20c011ada839
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:80c3ddc12dbc07be2fc9c5cfb3f4f5ac1a5e4cc79c1a2fb27f33356ef574df82
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:a83cf6b0d1928f9beeb09fa0fb7599ec0523c7567c19c6980ac4d8c1816c9158
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:96b3a806debad775d4c5374aa0e4f55be51a3a08fd811169511cb075ce2a5b99
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:7bcb0b7311fef523d76ee29928c518c53efa4245dbd24a8e10f0a06fad341f16
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:51b4e8c3cb615276130c08762b9f79c6e59d05ace428d5674929f34d489276d7
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:f4925ecc47b2bb820153ad1c29715a45f3c457f6102422b16222cdcf142df2e0
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:97d13ad3eaf9e85856cdd40a14438e1a37e4111888754d27405ee5480e712128
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:8da0bf23a14b05d96d77a8691c235100da86bd1169c4bacc5b6fa96e0d8f24f6
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:6dd98b7791babd12f735e6796323a71088c75d5ead17b329068832e26b251710
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:bb20689191f6ae1b327ded89a787771de9b2a9de939f0f88870e8e2482b0c904
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:b125543ae5f72ee87f8118bf7c25adbf2b50566f34062015ed04758c5a095541
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:293ee4a49ac38dd0b60ee70c42bc19e9e1ceacc56919106a5b2c2ccb20e77a85
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:cf6404c8033a77b9a27a8f37467b1bcd6f8df036b46e59515334e3c1dc5f5130
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:2be055840b19de5ff738744afdb1d61958e42c3f1271a1c134881aa4b386afc7
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:c7cc99d730da8a1b1e85e161ba993d59563a81cff002d32a8e232933cccacb9c
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:1c2eb2e695f56fc4bc9ef94a069a667d49cec3df44081d38d2027897b4bb5737
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:188c1b705cd8811b821180c31a60a4a0ce1e6ded940c94ddf66ca22f7d3194ca
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'
+- hash: sha256:0fd785f172137ba6fbf04fe8386971f009f898774727b8f43cdcfa5e53b7cb34
+  rule_id: AE1
+  file: SKILL.md
+  reason: 'Reviewed 2026-10-30: HIGH findings are word matches in design text (keyring,
+    curl, do not judge), a CLI flag (--no-check) and files too large to parse fully
+    (AE1). Network use is documented: image search on open archives (Openverse, Wikimedia,
+    Met, AIC, NASA) and local preview servers.'

@@ -1,0 +1,40 @@
+name: Skill security scan
+
+# Scans every Claude skill in .claude/skills/ with NVIDIA SkillSpector (static analysis,
+# no LLM, no secrets needed). Fails when a skill has findings not yet reviewed and
+# accepted in .skillspector/<skill>.yaml. See scripts/scan-skills.sh.
+on:
+  push:
+    branches: [master, develop]
+    paths: ['.claude/**', '.skillspector/**', 'scripts/scan-skills.sh', '.github/workflows/skills.yml']
+  pull_request:
+    paths: ['.claude/**', '.skillspector/**', 'scripts/scan-skills.sh', '.github/workflows/skills.yml']
+  schedule:
+    - cron: '17 4 * * 1' # weekly, Monday 04:17 UTC: newer scanner rules, fresh CVE data
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: skills-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    name: SkillSpector
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
+      # Pinned: the baselines in .skillspector/ were made with this version.
+      - run: uv tool install "git+https://github.com/NVIDIA/skillspector.git@v2.13.2"
+      - run: scripts/scan-skills.sh
+      - name: Upload reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: skillspector-reports
+          path: skillspector-reports/
+          retention-days: 30

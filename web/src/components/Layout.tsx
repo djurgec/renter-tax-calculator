@@ -3,8 +3,8 @@ import { Link, NavLink, Outlet } from 'react-router-dom'
 import { setLanguage } from '../i18n'
 
 const navClass = ({ isActive }: { isActive: boolean }) =>
-  `rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-    isActive ? 'bg-brand-soft text-brand-strong' : 'text-muted hover:text-ink'
+  `relative whitespace-nowrap py-2 font-medium transition-colors after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:rounded-full after:transition-colors ${
+    isActive ? 'text-on-brand after:bg-fix' : 'text-on-brand-muted after:bg-transparent hover:text-on-brand'
   }`
 
 export function Layout() {
@@ -19,13 +19,13 @@ export function Layout() {
       >
         Skip to content
       </a>
-      <header className="border-b border-line bg-surface">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3">
-          <Link to="/" className="flex items-center gap-2 font-semibold text-ink">
-            <img src="/favicon.svg" alt="" width={28} height={28} />
-            <span className="text-lg">{t('appName')}</span>
+      <header className="bg-brand text-on-brand">
+        <div className="mx-auto flex max-w-[90rem] flex-wrap items-center gap-x-10 gap-y-1 px-4 pt-3 sm:px-8 sm:py-3.5">
+          <Link to="/" className="flex items-center gap-2.5">
+            <img src="/favicon.svg" alt="" width={30} height={30} />
+            <span className="display text-[1.4rem] font-semibold">{t('appName')}</span>
           </Link>
-          <nav aria-label="Main" className="order-3 flex w-full gap-1 overflow-x-auto sm:order-2 sm:w-auto">
+          <nav aria-label="Main" className="order-3 flex w-full gap-7 overflow-x-auto sm:order-2 sm:w-auto">
             <NavLink to="/" end className={navClass}>
               {t('nav.calculator')}
             </NavLink>
@@ -41,19 +41,24 @@ export function Layout() {
             onClick={() => setLanguage(other)}
             aria-label={t('languageLabel')}
             lang={other}
-            className="order-2 ml-auto rounded-md border border-line px-3 py-1.5 text-sm text-muted hover:text-ink sm:order-3"
+            className="press order-2 ml-auto rounded-full border border-on-brand-muted/50 px-4 py-1.5 text-[0.95rem] text-on-brand hover:border-on-brand sm:order-3"
           >
             {t('language')}
           </button>
         </div>
       </header>
 
-      <main id="main" className="mx-auto w-full max-w-5xl flex-1 px-4 py-6 sm:py-8">
+      <main id="main" className="mx-auto w-full max-w-[90rem] flex-1 px-4 pb-24 pt-6 sm:px-8 sm:pt-8 lg:pb-12">
         <Outlet />
       </main>
 
-      <footer className="border-t border-line">
-        <p className="mx-auto max-w-5xl px-4 py-5 text-sm text-muted">{t('footer')}</p>
+      <footer className="bg-brand text-on-brand-muted">
+        <div className="mx-auto flex max-w-[90rem] flex-col gap-2 px-4 py-7 sm:flex-row sm:items-baseline sm:gap-10 sm:px-8">
+          <p className="display shrink-0 text-lg font-semibold text-on-brand">{t('appName')}</p>
+          <p className="max-w-3xl text-sm leading-relaxed">
+            {t('footer')} {t('mapCredit')}
+          </p>
+        </div>
       </footer>
     </div>
   )

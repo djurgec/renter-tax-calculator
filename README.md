@@ -13,6 +13,7 @@ yearly flat-rate tax for renters (*paušalni porez*) and the property tax
 
 Built for the *Datathon Portala otvorenih podataka 2026* (data.gov.hr).
 Technical and project documentation (in Croatian): [docs/DOKUMENTACIJA.md](docs/DOKUMENTACIJA.md).
+Presentation for the datathon (in Croatian): [docs/PorezniKompas_prezentacija.pptx](docs/PorezniKompas_prezentacija.pptx).
 
 ## Run it locally
 

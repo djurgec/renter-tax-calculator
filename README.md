@@ -32,7 +32,7 @@ data processing is needed. The first build takes a few minutes.
 docker compose run --rm etl
 ```
 
-This downloads the eight public sources (~390 MB), joins them and runs the
+This downloads the eight source files (five datasets, ~390 MB), joins them and runs the
 twelve quality checks. It writes `data/build/porezni_kompas.sqlite` and
 `data/build/validation_report.json`. To download every
 source again instead of using the cache:
@@ -66,14 +66,16 @@ Architecture, data linking, quality checks and prerequisites:
 
 | Dataset | Publisher | Link | Used for |
 |---|---|---|---|
-| Visina paušalnog poreza na dohodak po JLS za 2026. | Porezna uprava | [data.gov.hr](https://data.gov.hr/ckan/dataset/3c19c044-4cc4-42f1-ac97-29286a2bf305) | flat-rate rate per bed, street, settlement or municipality |
-| Usporedba poreza na nekretnine 2025/2026 | Porezna uprava | same dataset | property tax rate, who bills it |
-| Stope poreza na dohodak 2025 i 2026 | Porezna uprava | same dataset | income tax rates (municipality pages) |
-| Visina stopa poreza na potrošnju za 2026. | Porezna uprava | same dataset | official municipality codes, consumption tax |
+| Usporedba poreznih stopa prema odlukama JLS (4 XLSX files, listed below) | Porezna uprava | [data.gov.hr](https://data.gov.hr/ckan/dataset/3c19c044-4cc4-42f1-ac97-29286a2bf305) | flat-rate and property tax rates, income and consumption tax, official municipality codes |
 | Adrese (INSPIRE) | Državna geodetska uprava | [geoportal.dgu.hr](https://geoportal.dgu.hr/services/atom/INSPIRE_Addresses_(AD).zip) | every address, house number and position |
 | Administrativne jedinice (INSPIRE) | Državna geodetska uprava | [geoportal.dgu.hr](https://geoportal.dgu.hr/services/atom/INSPIRE_Administrative_Units_(AU).zip) | settlement → municipality for every address |
 | Registar birača – broj birača po adresi | Ministarstvo pravosuđa, uprave i digitalne transformacije | [data.gov.hr](https://data.gov.hr/ckan/dataset/a4f06d5d-52bd-46b5-a4e7-cf01d4f6e227) | municipality counties; cross-check of the address links |
 | Naselje i odredišni poštanski ured | Hrvatska pošta | [posta.hr](https://www.posta.hr/mjestaRh.aspx) | cross-check of the address links |
+
+The Porezna uprava dataset has four files: *Visina paušalnog poreza na dohodak po JLS
+za 2026.* (the flat-rate rules), *Usporedba poreza na nekretnine 2025/2026*,
+*Stope poreza na dohodak 2025 i 2026* and *Visina stopa poreza na potrošnju za 2026.*
+In total that is five datasets, downloaded as eight files.
 
 Exact download URLs and checksums: `src/porezni_kompas/etl/sources.py` and the
 `/api/meta/sources` endpoint.
